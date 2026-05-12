@@ -12,19 +12,10 @@
                     colors: { cyan: '#00fff2', gold: '#ffcc00', dark: '#0a0a0a', obsidian: '#0f1115', panel: '#15181e' },
                     fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
                     keyframes: {
-                        loading: { '0%': { width: '0%' }, '100%': { width: '100%' } },
-                        glitch: {
-                            '0%': { transform: 'translate(0)' },
-                            '20%': { transform: 'translate(-2px, 2px)' },
-                            '40%': { transform: 'translate(-2px, -2px)' },
-                            '60%': { transform: 'translate(2px, 2px)' },
-                            '80%': { transform: 'translate(2px, -2px)' },
-                            '100%': { transform: 'translate(0)' },
-                        }
+                        loading: { '0%': { width: '0%' }, '100%': { width: '100%' } }
                     },
                     animation: {
-                        'loading-bar': 'loading 2.5s ease-in-out forwards',
-                        'glitch-effect': 'glitch 0.3s ease-in-out infinite'
+                        'loading-bar': 'loading 2.8s ease-in-out forwards'
                     }
                 }
             }
@@ -37,10 +28,7 @@
         .report-card { transition: all 0.3s ease; border: 1px solid rgba(0, 255, 242, 0.1); }
         .report-card:hover { border-color: rgba(0, 255, 242, 0.5); transform: translateY(-4px); }
         .content-ready { overflow-y: auto; }
-        
-        /* تحسين مظهر شريط التمرير (Scrollbar) ليناسب الطابع السيبراني */
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-thumb { background: #00fff2; border-radius: 10px; }
     </style>
 </head>
@@ -54,11 +42,11 @@
             </div>
         </div>
         <div class="mt-10 text-center">
-            <h2 class="text-cyan font-mono text-3xl font-black tracking-[0.4em] mb-4">AI SCOUT</h2>
+            <h2 class="text-cyan font-mono text-3xl font-black tracking-[0.4em] mb-4 uppercase">AI SCOUT</h2>
             <div class="w-64 h-1 bg-white/5 rounded-full overflow-hidden mx-auto">
                 <div class="h-full bg-cyan animate-loading-bar"></div>
             </div>
-            <p class="text-zinc-500 font-mono text-[10px] mt-4 tracking-[0.2em] uppercase">Encrypting Terminal Access...</p>
+            <p class="text-zinc-500 font-mono text-[10px] mt-4 tracking-[0.2em] uppercase">Initializing Secure Terminal...</p>
         </div>
     </div>
 
@@ -78,14 +66,15 @@
                 </h1>
                 <div class="flex items-center gap-1 mt-1">
                     <span class="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse"></span>
-                    <span class="text-[7px] text-cyan/50 font-mono tracking-[0.2em] uppercase">Active_Intel_V1</span>
+                    <span class="text-[7px] text-cyan/50 font-mono tracking-[0.2em] uppercase">System_Active_V2</span>
                 </div>
             </div>
         </div>
+        
         <nav class="p-4 space-y-2">
             <div class="flex items-center gap-3 px-4 py-3 rounded bg-cyan/10 text-cyan border border-cyan/20">
                 <i data-lucide="terminal" class="w-4 h-4"></i>
-                <span class="hidden md:block font-mono text-[10px] font-bold tracking-widest uppercase">System Console</span>
+                <span class="hidden md:block font-mono text-[10px] font-bold tracking-widest uppercase">Console</span>
             </div>
         </nav>
     </aside>
@@ -94,9 +83,8 @@
         <header class="sticky top-0 z-20 bg-dark/90 backdrop-blur-md border-b border-white/5 py-4 px-10 flex justify-between items-center">
             <div class="flex items-center gap-2">
                 <div class="w-2 h-2 rounded-full bg-cyan shadow-[0_0_8px_#00fff2] animate-pulse"></div>
-                <span class="text-[10px] font-mono tracking-[0.3em] text-zinc-400 uppercase">Live_Signal_Secure</span>
+                <span class="text-[10px] font-mono tracking-[0.3em] text-zinc-400 uppercase">Live_Secure_Signal</span>
             </div>
-            <div class="text-[10px] font-mono text-zinc-600 uppercase tracking-widest">Auth: Level_4_Clearance</div>
         </header>
 
         <div class="p-10 pb-24 max-w-7xl mx-auto">
@@ -110,20 +98,16 @@
     </main>
 
     <div id="report-modal" class="fixed inset-0 z-50 flex items-center justify-center p-6 bg-dark/95 backdrop-blur-md hidden opacity-0 transition-all duration-300">
-        <div class="bg-panel border border-cyan/30 w-full max-w-2xl rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] flex flex-col">
+        <div class="bg-panel border border-cyan/30 w-full max-w-2xl rounded-2xl overflow-hidden shadow-2xl flex flex-col">
             <div class="px-6 py-4 border-b border-white/10 flex justify-between items-center bg-obsidian">
-                <div class="flex items-center gap-2">
-                    <i data-lucide="lock" class="w-3 h-3 text-cyan"></i>
-                    <h2 id="modal-title" class="text-[10px] font-bold text-cyan uppercase tracking-widest font-mono">Encrypted Report</h2>
-                </div>
-                <button id="close-modal-btn" class="p-1 hover:bg-white/5 rounded-full text-zinc-500 hover:text-cyan transition-all"><i data-lucide="x" class="w-5 h-5"></i></button>
+                <h2 id="modal-title" class="text-[10px] font-bold text-cyan uppercase tracking-widest font-mono">Report</h2>
+                <button id="close-modal-btn" class="text-zinc-500 hover:text-cyan"><i data-lucide="x"></i></button>
             </div>
             <div class="p-10 flex flex-col gap-8">
-                <p id="modal-description" class="text-zinc-300 leading-relaxed text-sm text-right font-light border-r-2 border-cyan/20 pr-4" dir="rtl"></p>
-                
+                <p id="modal-description" class="text-zinc-300 leading-relaxed text-sm text-right font-light" dir="rtl"></p>
                 <div id="audio-container" class="w-full bg-dark/50 p-6 rounded-xl border border-white/5 hidden">
                     <div class="flex items-center gap-6">
-                        <button id="play-pause-btn" class="w-14 h-14 flex items-center justify-center bg-cyan text-dark rounded-full shadow-[0_0_20px_rgba(0,255,242,0.4)] hover:scale-105 transition-transform">
+                        <button id="play-pause-btn" class="w-14 h-14 flex items-center justify-center bg-cyan text-dark rounded-full shadow-[0_0_20px_rgba(0,255,242,0.4)]">
                             <i data-lucide="play" id="icon-play" class="w-6 h-6 fill-current"></i>
                             <i data-lucide="pause" id="icon-pause" class="w-6 h-6 fill-current hidden"></i>
                         </button>
@@ -146,14 +130,14 @@
             reports: [
                 { 
                     id: 1, 
-                    title: "Strategic Intel 01", 
+                    title: "Strategic Intel Report 01", 
                     description: "تم استعادة هذا التقرير الصوتي بنجاح. يحتوي على تحليل استراتيجي للسيادة الرقمية وتطور أنظمة الذكاء الاصطناعي المستقلة للعام القادم.", 
                     audioUrl: "./podcast1.mp3" 
                 }
             ]
         };
 
-        // تشغيل Splash Screen
+        // إدارة واجهة الدخول
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
@@ -162,7 +146,7 @@
                 main.classList.replace('opacity-0', 'opacity-100');
                 document.body.classList.add('content-ready');
                 setTimeout(() => splash.classList.add('hidden'), 1000);
-            }, 2800);
+            }, 3000);
         });
 
         const renderGrid = () => {
@@ -170,17 +154,11 @@
             grid.innerHTML = intelData.reports.map(r => `
                 <div class="report-card bg-panel p-8 rounded-xl cursor-pointer group" onclick="openModal(${r.id})">
                     <div class="flex justify-between items-start mb-6">
-                        <div class="text-gold font-mono text-[9px] tracking-[0.3em] uppercase">ALPHA_NODE_${r.id}</div>
-                        <div class="w-10 h-10 rounded border border-white/5 flex items-center justify-center group-hover:border-cyan/30 transition-all">
-                            <i data-lucide="fingerprint" class="w-5 h-5 text-cyan/20 group-hover:text-cyan group-hover:animate-pulse"></i>
-                        </div>
+                        <div class="text-gold font-mono text-[9px] tracking-[0.3em] uppercase">NODE_${r.id}</div>
+                        <i data-lucide="fingerprint" class="w-8 h-8 text-cyan/20 group-hover:text-cyan transition-colors"></i>
                     </div>
                     <h3 class="text-white font-bold text-lg mb-4 uppercase tracking-tighter group-hover:text-cyan transition-colors">${r.title}</h3>
                     <p class="text-zinc-500 text-xs leading-relaxed line-clamp-2" dir="rtl">${r.description}</p>
-                    <div class="mt-6 pt-4 border-t border-white/5 flex justify-between items-center opacity-40 group-hover:opacity-100 transition-all">
-                        <span class="text-[9px] text-cyan font-mono uppercase tracking-widest italic">Decrypt_Access</span>
-                        <i data-lucide="chevron-right" class="w-3 h-3 text-cyan"></i>
-                    </div>
                 </div>
             `).join('');
             lucide.createIcons();
@@ -191,7 +169,7 @@
 
         window.openModal = (id) => {
             const r = intelData.reports.find(x => x.id === id);
-            document.getElementById('modal-title').innerText = `SECURE_ENTRY // NODE_ID_${r.id}`;
+            document.getElementById('modal-title').innerText = `SECURE_ENTRY // ${r.id}`;
             document.getElementById('modal-description').innerText = r.description;
             
             const container = document.getElementById('audio-container');
