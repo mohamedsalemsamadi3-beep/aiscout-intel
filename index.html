@@ -5,41 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI SCOUT | Intelligence Sovereignty</title>
     
+    <!-- Tailwind CSS (CDN for standalone usage without build step) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        cyan: '#00fff2', gold: '#ffcc00', dark: '#0a0a0a', obsidian: '#0f1115', panel: '#15181e',
+                        cyan: '#00fff2',
+                        gold: '#ffcc00',
+                        dark: '#0a0a0a',
+                        obsidian: '#0f1115',
+                        panel: '#15181e',
                     },
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
                     }
                 }
             }
         }
     </script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
+    <!-- Project Styles -->
     <style>
-        body { background-color: #0a0a0a; color: #ffffff; -webkit-font-smoothing: antialiased; margin: 0; }
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            -webkit-font-smoothing: antialiased;
+            margin: 0;
+        }
+
+        /* Custom Tech Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #0a0a0a; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #00fff2; }
-        .mask-image-gradient { -webkit-mask-image: linear-gradient(to left, transparent, black); mask-image: linear-gradient(to left, transparent, black); }
-        .report-card { transition: all 0.3s ease; }
-        .report-card:hover { border-color: rgba(0, 255, 242, 0.5); transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0, 255, 242, 0.1); }
-        .modal-content { animation: slide-up 0.3s ease-out forwards; }
-        @keyframes slide-up { from { opacity: 0; transform: translateY(20px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+        .mask-image-gradient {
+            -webkit-mask-image: linear-gradient(to left, transparent, black);
+            mask-image: linear-gradient(to left, transparent, black);
+        }
+
+        .report-card {
+            transition: all 0.3s ease;
+        }
+        
+        .report-card:hover {
+            border-color: rgba(0, 255, 242, 0.5);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 255, 242, 0.1);
+        }
+
+        /* Modal Animations */
+        .modal-content {
+            animation: slide-up 0.3s ease-out forwards;
+        }
+
+        @keyframes slide-up {
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
     </style>
 </head>
 <body class="flex h-screen w-full bg-dark overflow-hidden selection:bg-cyan/30 selection:text-cyan">
 
+    <!-- Sidebar Navigation -->
     <aside class="w-16 md:w-64 bg-obsidian border-r border-cyan/20 flex-col justify-between z-10 hidden sm:flex shrink-0">
         <div>
             <div class="p-6 border-b border-cyan/20 flex items-center md:gap-3">
@@ -51,209 +88,455 @@
                     <i data-lucide="terminal" class="w-[18px] h-[18px]"></i>
                     <span class="hidden md:block font-mono text-xs font-bold tracking-widest">TERMINAL</span>
                 </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-md transition-all duration-200 group text-zinc-500 hover:text-zinc-300 hover:bg-white/5">
+                    <i data-lucide="database" class="w-[18px] h-[18px] group-hover:text-cyan transition-colors"></i>
+                    <span class="hidden md:block font-mono text-xs font-bold tracking-widest">ARCHIVE</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-md transition-all duration-200 group text-zinc-500 hover:text-zinc-300 hover:bg-white/5">
+                    <i data-lucide="cpu" class="w-[18px] h-[18px] group-hover:text-cyan transition-colors"></i>
+                    <span class="hidden md:block font-mono text-xs font-bold tracking-widest">SYSTEMS</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-md transition-all duration-200 group text-zinc-500 hover:text-zinc-300 hover:bg-white/5">
+                    <i data-lucide="shield-alert" class="w-[18px] h-[18px] group-hover:text-cyan transition-colors"></i>
+                    <span class="hidden md:block font-mono text-xs font-bold tracking-widest">THREAT INTEL</span>
+                </a>
             </nav>
         </div>
         <div class="p-6 border-t border-cyan/10">
-            <div class="hidden md:flex items-center gap-2 text-xs font-mono text-zinc-500">
+            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-md transition-all duration-200 group text-zinc-500 hover:text-zinc-300 hover:bg-white/5">
+                <i data-lucide="settings" class="w-[18px] h-[18px] group-hover:text-cyan transition-colors"></i>
+                <span class="hidden md:block font-mono text-xs font-bold tracking-widest">SETTINGS</span>
+            </a>
+            <div class="hidden md:flex mt-4 items-center gap-2 text-xs font-mono text-zinc-500">
                 <i data-lucide="lock" class="w-3 h-3 text-gold"></i>
                 <span class="text-gold">ENC: 2048-RSA</span>
             </div>
         </div>
     </aside>
 
+    <!-- Main Content Area -->
     <main class="flex-1 overflow-y-auto relative bg-dark">
+        
+        <!-- Top Header -->
         <header class="sticky top-0 z-20 bg-dark/80 backdrop-blur-md border-b border-white/5 py-4 px-6 md:px-10 flex justify-between items-center">
             <div class="flex items-center gap-3">
                 <div class="w-2 h-2 rounded-full bg-cyan shadow-[0_0_8px_#00fff2] animate-pulse"></div>
                 <span class="text-xs font-mono tracking-widest text-zinc-400">NETWORK: SECURE</span>
             </div>
-            <div id="header-date" class="text-xs font-mono tracking-widest text-zinc-500">// INTEL_SYNC</div>
+            <div id="header-date" class="text-xs font-mono tracking-widest text-zinc-500">
+                // INTEL_SYNC
+            </div>
         </header>
 
         <div class="p-6 md:p-10 pb-24 max-w-7xl mx-auto">
+            
+            <!-- Hero Section -->
             <div class="mb-12 relative overflow-hidden rounded-xl border border-cyan/30 bg-panel group">
                 <div class="absolute inset-0 bg-gradient-to-r from-obsidian to-transparent z-10 pointer-events-none"></div>
                 <div class="flex flex-col md:flex-row min-h-[300px]">
                     <div class="z-20 p-8 md:p-12 flex flex-col justify-center w-full md:w-1/2">
-                        <h1 class="text-4xl md:text-5xl font-black text-white tracking-tight mb-2 uppercase">AI SCOUT INTEL</h1>
-                        <p class="text-cyan font-mono text-sm uppercase tracking-widest mb-6 border-l-2 border-gold pl-3">Advanced Strategic Archives & Intelligence Operations Platform</p>
+                        <h1 id="hero-title" class="text-4xl md:text-5xl font-black text-white tracking-tight mb-2 uppercase">
+                            AI SCOUT INTEL
+                        </h1>
+                        <p id="hero-subtitle" class="text-cyan font-mono text-sm uppercase tracking-widest mb-6 border-l-2 border-gold pl-3">
+                            Advanced Strategic Archives & Intelligence Operations Platform
+                        </p>
+                        <div class="mt-auto pt-8 flex gap-4">
+                            <button class="bg-cyan/10 hover:bg-cyan/20 border border-cyan text-cyan px-6 py-2.5 rounded font-mono text-xs tracking-widest transition-all duration-300 cursor-pointer">
+                                GLOBAL SCAN
+                            </button>
+                            <button class="bg-transparent border border-white/20 hover:border-gold text-white hover:text-gold px-6 py-2.5 rounded font-mono text-xs tracking-widest transition-all duration-300 cursor-pointer">
+                                DECRYPT LOGS
+                            </button>
+                        </div>
                     </div>
-                    <div class="absolute right-0 top-0 bottom-0 w-full md:w-2/3 h-full opacity-40">
-                        <img src="./hero_main.png" alt="Hero" class="w-full h-full object-cover">
+                    <div class="absolute right-0 top-0 bottom-0 w-full md:w-2/3 h-full opacity-40 group-hover:opacity-60 transition-opacity duration-700">
+                        <img 
+                            id="hero-image"
+                            src="./hero_main.png" 
+                            alt="Hero Intel" 
+                            class="w-full h-full object-cover intel-image"
+                            data-fallback-index="0"
+                        />
                         <div class="absolute inset-0 mask-image-gradient bg-gradient-to-l from-transparent to-panel"></div>
                     </div>
                 </div>
             </div>
 
-            <div id="reports-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+            <!-- Section Title -->
+            <div class="flex items-center gap-4 mb-8">
+                <h2 class="text-2xl font-bold tracking-widest text-zinc-100 uppercase">Sovereign Intelligence Feed</h2>
+                <div class="flex-1 h-px bg-gradient-to-r from-cyan/50 to-transparent"></div>
+            </div>
+
+            <!-- Grid Layout Container for Reports -->
+            <div id="reports-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Cards will be dynamically injected here by JS -->
+            </div>
+
         </div>
+        
+        <!-- Footer -->
+        <footer class="border-t border-white/10 bg-obsidian p-8 text-center mt-auto">
+            <p class="text-zinc-500 font-mono text-xs tracking-widest mb-2">
+                &copy; 2026 <span class="text-gold font-bold">AI SCOUT</span> | THE INFINITE DIGITAL FACTORY
+            </p>
+            <p class="text-zinc-600 font-mono text-[10px] tracking-[0.2em]">MODEL-AGNOSTIC STRATEGY // DATA SOVEREIGNTY</p>
+        </footer>
     </main>
 
+    <!-- Detail Modal Overlay -->
     <div id="report-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-dark/95 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
-        <div class="modal-content bg-[#111111] border border-cyan/40 w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-xl shadow-[0_0_50px_rgba(0,255,242,0.15)] flex flex-col">
+        <div class="modal-content bg-[#111111] border border-cyan/40 w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-xl shadow-[0_0_50px_rgba(0,255,242,0.15)] flex flex-col pt-0">
             <div class="sticky top-0 bg-[#111111]/95 backdrop-blur px-6 py-4 border-b border-white/10 flex justify-between items-center z-10">
-                <h2 id="modal-title" class="text-lg md:text-xl font-bold text-white tracking-wide">Report</h2>
-                <button id="close-modal-btn" class="text-zinc-500 hover:text-cyan p-2 cursor-pointer"><i data-lucide="x"></i></button>
+                <div class="flex items-center gap-3">
+                    <div class="bg-cyan/20 p-2 rounded">
+                        <i data-lucide="database" class="text-cyan w-[18px] h-[18px]"></i>
+                    </div>
+                    <h2 id="modal-title" class="text-lg md:text-xl font-bold text-white tracking-wide">Report Title</h2>
+                </div>
+                <button id="close-modal-btn" class="text-zinc-500 hover:text-cyan p-2 rounded-full hover:bg-white/5 transition-colors cursor-pointer">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
             </div>
 
             <div class="p-6 md:p-8">
+                <div class="rounded-lg overflow-hidden border border-white/5 mb-8 h-64 md:h-80 relative">
+                    <img 
+                        id="modal-image"
+                        src="" 
+                        alt="Report Image" 
+                        class="w-full h-full object-cover intel-image"
+                        data-fallback-index="0"
+                    />
+                    <div class="absolute inset-0 shadow-[inset_0_0_50px_rgba(0,0,0,0.8)] pointer-events-none"></div>
+                </div>
+
                 <div class="flex flex-col md:flex-row gap-8">
-                    <div class="flex-1 order-2 md:order-1">
-                        <h3 class="text-gold font-mono text-xs tracking-widest mb-3 border-b border-gold/20 pb-2 uppercase">Intelligence Briefing</h3>
-                        <div id="modal-description" class="text-zinc-300 leading-relaxed text-sm md:text-base whitespace-pre-wrap"></div>
+                    <div class="flex-1">
+                        <h3 class="text-gold font-mono text-xs tracking-widest mb-3 border-b border-gold/20 pb-2">INTELLIGENCE BRIEFING</h3>
+                        <p id="modal-description" class="text-zinc-300 leading-relaxed text-sm md:text-base">
+                            Report description goes here.
+                        </p>
+                        <p class="text-zinc-500 mt-4 text-sm">
+                            Further decryption required for extended analysis. Proceed with standard clearance protocols.
+                        </p>
                     </div>
                     
-                    <div id="audio-container" class="w-full md:w-72 bg-dark border border-white/10 p-5 rounded flex flex-col h-fit order-1 md:order-2">
-                        <div class="flex items-center gap-2 mb-4 text-cyan uppercase font-mono text-[10px] tracking-widest">
-                            <i data-lucide="volume-2" class="w-4 h-4"></i> Audio Transmission
+                    <div id="audio-container" class="w-full md:w-64 bg-dark border border-white/10 p-5 rounded flex flex-col hidden">
+                        <div class="flex items-center gap-2 mb-4 text-cyan">
+                            <i data-lucide="volume-2" class="w-4 h-4"></i>
+                            <span class="font-mono text-xs tracking-widest">AUDIO TRANSMISSION (.m4a)</span>
                         </div>
-                        <div class="bg-obsidian border border-white/5 rounded p-3 mb-4 flex items-center justify-center h-16 relative overflow-hidden" id="audio-wave"></div>
-                        <div class="flex flex-col gap-2">
-                            <div class="flex justify-between text-[10px] font-mono text-zinc-500">
-                                <span id="audio-current">00:00</span><span id="audio-total">00:00</span>
+                        
+                        <div class="bg-obsidian border border-white/5 rounded p-3 mb-4 flex items-center justify-center h-16 relative overflow-hidden">
+                            <!-- Faux generic audio wave visualization -->
+                            <div class="flex items-center gap-1 w-full justify-between opacity-50 px-2" id="audio-wave">
+                                <!-- Bars injected by JS -->
+                            </div>
+                        </div>
+                        
+                        <!-- Custom Audio Controls -->
+                        <div class="flex flex-col gap-2 mt-auto">
+                            <div class="flex justify-between text-[10px] font-mono text-zinc-500 mb-1">
+                                <span id="audio-current">00:00</span>
+                                <span id="audio-total">00:00</span>
                             </div>
                             <div class="flex items-center gap-3">
-                                <button id="play-pause-btn" class="w-10 h-10 flex items-center justify-center bg-cyan/20 hover:bg-cyan/40 text-cyan rounded-full transition-colors">
-                                    <i data-lucide="play" id="icon-play" class="w-5 h-5 ml-0.5"></i>
-                                    <i data-lucide="pause" id="icon-pause" class="w-5 h-5 hidden"></i>
+                                <button id="play-pause-btn" class="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-cyan/20 hover:bg-cyan/40 text-cyan rounded-full transition-colors cursor-pointer">
+                                    <i data-lucide="play" id="icon-play" class="w-4 h-4 ml-0.5"></i>
+                                    <i data-lucide="pause" id="icon-pause" class="w-4 h-4 hidden"></i>
                                 </button>
-                                <input type="range" id="audio-progress" value="0" class="w-full h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-cyan">
+                                <input type="range" id="audio-progress" value="0" min="0" max="100" class="w-full h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-cyan">
                             </div>
                         </div>
-                        <audio id="modal-audio" class="hidden"><source id="modal-audio-source" src="" type="audio/mpeg"></audio>
+                        
+                        <audio id="modal-audio" class="hidden">
+                            <source id="modal-audio-source" src="" type="audio/mp4" />
+                            Your browser does not support the audio element.
+                        </audio>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Application Logic (All JavaScript) -->
     <script>
-             // --- DATA LAYER ---
+        // --- DATA LAYER ---
         const intelData = {
+            hero: {
+                title: "AI SCOUT INTEL",
+                subtitle: "Advanced Strategic Archives & Intelligence Operations Platform",
+                image: "./hero_main.png"
+            },
             reports: [
-                { 
-                  id: 1, 
-                  title: "Strategic Intel Report 01", 
-                  description: "تحليل شامل للبيانات الميدانية.\nهذا التقرير يركز على استراتيجيات النمو الرقمي وتأمين البيانات السيادية.", 
-                  image: "./hero1.png", 
-                  audioUrl: "https://docs.google.com/uc?export=open&id=1tAIpprRdAkouSzD91RgziNxbByExpnqF" 
-                },
-                { 
-                  id: 2, 
-                  title: "Operational Scout 02", 
-                  description: "تقرير العمليات التكتيكية.\nيتناول هذا البودكاست تفاصيل التنسيق الميداني الأخير.", 
-                  image: "./hero2.png", 
-                  audioUrl: "https://docs.google.com/uc?export=open&id=1SrgKMCYpWwrOq-ccLD70hOVGCS3hgxcf" 
-                },
-                { 
-                  id: 3, 
-                  title: "Digital Surveillance 03", 
-                  description: "مقال تقني حول أنظمة المراقبة الذكية.\n(هذا التقرير لا يحتوي على بودكاست، سيظهر النص فقط).", 
-                  image: "./hero3.png", 
-                  audioUrl: "" 
-                }
+                { id: 1, title: "Strategic Intel Report 01", description: "Deep analysis of operational field data.", image: "./hero1.png", audioUrl: "https://drive.google.com/uc?id=1tAIpprRdAkouSzD91RgziNxbByExpnqF" },
+                { id: 2, title: "Operational Scout 02", description: "Real-time tactical coordination updates.", image: "./hero2.png", audioUrl: "https://drive.google.com/uc?id=1SrgKMCYpWwrOq-ccLD70hOVGCS3hgxcf" },
+                { id: 3, title: "Digital Surveillance 03", description: "Technical infrastructure security monitoring.", image: "./hero3.png", audioUrl: "" },
+                { id: 4, title: "Data Mining Archive 04", description: "Extraction of patterns from complex datasets.", image: "./hero4.png", audioUrl: "" },
+                { id: 5, title: "Field Ops Logistics 05", description: "Strategic deployment and resource mapping.", image: "./hero5.png", audioUrl: "" },
+                { id: 6, title: "Signal Intelligence 06", description: "Communication interception and processing.", image: "./hero6.png", audioUrl: "" },
+                { id: 7, title: "Tactical Assessment 07", description: "Evaluating combat readiness and positioning.", image: "./hero7.png", audioUrl: "" },
+                { id: 8, title: "Urban Reconnaissance 08", description: "Mapping urban operational environments.", image: "./hero8.png", audioUrl: "" },
+                { id: 9, title: "Cyber Defense Protocol 09", description: "Advanced infrastructure protection systems.", image: "./hero9.png", audioUrl: "" },
+                { id: 10, title: "Intelligence Summary 10", description: "Weekly strategic activity briefing.", image: "./hero10.png", audioUrl: "" },
+                { id: 11, title: "Risk Mitigation 11", description: "Identifying potential operational threats.", image: "./hero11.png", audioUrl: "" },
+                { id: 12, title: "Global Intel Network 12", description: "Updates from the international scouting grid.", image: "./hero12.png", audioUrl: "" },
+                { id: 13, title: "Autonomous Systems 13", description: "Monitoring AI-driven operational units.", image: "./hero13.png", audioUrl: "" },
+                { id: 14, title: "Encrypted Comms 14", description: "Security status of private channels.", image: "./hero14.png", audioUrl: "" },
+                { id: 15, title: "Shadow Ops Analysis 15", description: "Tracking non-conventional movements.", image: "./hero15.png", audioUrl: "" },
+                { id: 16, title: "Predictive Modeling 16", description: "AI forecasts for tactical scenarios.", image: "./hero16.png", audioUrl: "" },
+                { id: 17, title: "Bio-Metric Security 17", description: "Analysis of access control systems.", image: "./hero17.png", audioUrl: "" },
+                { id: 18, title: "Logistics Grid 18", description: "Supply chain integrity tracking.", image: "./hero18.png", audioUrl: "" },
+                { id: 19, title: "Neural Link Status 19", description: "Intelligence interface connectivity reports.", image: "./hero19.png", audioUrl: "" },
+                { id: 20, title: "Geospatial Intel 20", description: "Satellite imagery and terrain analysis.", image: "./hero20.png", audioUrl: "" },
+                { id: 21, title: "Target Identification 21", description: "Object recognition and classification data.", image: "./hero21.png", audioUrl: "" },
+                { id: 22, title: "Rapid Response 22", description: "Evaluation of quick-deployment units.", image: "./hero22.png", audioUrl: "" },
+                { id: 23, title: "Crisis Management 23", description: "Strategies for emergency operational shifts.", image: "./hero23.png", audioUrl: "" },
+                { id: 24, title: "Final Archive Sync 24", description: "Consolidated database update for 2026.", image: "./hero24.png", audioUrl: "" }
             ]
         };
 
+        // --- FALLBACK IMAGES (if actual files are missing in root folder) ---
+        const TECH_FALLBACK_IMAGES = [
+            "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=600",
+            "https://images.unsplash.com/photo-1510511459019-5efa3702468d?auto=format&fit=crop&q=80&w=600",
+            "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=600",
+            "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=600",
+            "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=600"
+        ];
+
+        const getFallbackImage = (index) => TECH_FALLBACK_IMAGES[index % TECH_FALLBACK_IMAGES.length];
+
+        // --- AUDIO PLAYER LOGIC ---
+        const setupAudioPlayer = () => {
+            const audioElement = document.getElementById('modal-audio');
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const iconPlay = document.getElementById('icon-play');
+            const iconPause = document.getElementById('icon-pause');
+            const progressBar = document.getElementById('audio-progress');
+            const currentTimeEl = document.getElementById('audio-current');
+            const totalTimeEl = document.getElementById('audio-total');
+            
+            if(!audioElement || !playPauseBtn) return;
+
+            const formatTime = (time) => {
+                if (isNaN(time)) return "00:00";
+                const mins = Math.floor(time / 60);
+                const secs = Math.floor(time % 60);
+                return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            };
+
+            let isPlaying = false;
+
+            window.updatePlayState = (playing) => {
+                isPlaying = playing;
+                const waveBars = document.querySelectorAll('#audio-wave div');
+                if (playing) {
+                    iconPlay.classList.add('hidden');
+                    iconPause.classList.remove('hidden');
+                    waveBars.forEach(bar => bar.style.animationPlayState = 'running');
+                } else {
+                    iconPlay.classList.remove('hidden');
+                    iconPause.classList.add('hidden');
+                    waveBars.forEach(bar => bar.style.animationPlayState = 'paused');
+                }
+            };
+
+            playPauseBtn.addEventListener('click', () => {
+                if (isPlaying) {
+                    audioElement.pause();
+                } else {
+                    audioElement.play();
+                }
+            });
+
+            audioElement.addEventListener('play', () => window.updatePlayState(true));
+            audioElement.addEventListener('pause', () => window.updatePlayState(false));
+
+            audioElement.addEventListener('loadedmetadata', () => {
+                totalTimeEl.innerText = formatTime(audioElement.duration);
+                progressBar.max = Math.floor(audioElement.duration);
+            });
+
+            audioElement.addEventListener('timeupdate', () => {
+                currentTimeEl.innerText = formatTime(audioElement.currentTime);
+                if(document.activeElement !== progressBar) { // Don't snap while dragging
+                    progressBar.value = Math.floor(audioElement.currentTime);
+                }
+            });
+
+            progressBar.addEventListener('input', () => {
+                currentTimeEl.innerText = formatTime(progressBar.value);
+            });
+
+            progressBar.addEventListener('change', () => {
+                audioElement.currentTime = progressBar.value;
+            });
+        };
+
         // --- UI INITIALIZATION ---
+
         const setDate = () => {
             const dateStr = new Date().toISOString().split('T')[0].replace(/-/g, '.');
             document.getElementById('header-date').innerText = dateStr + ' // INTEL_SYNC';
         };
 
-        const renderGrid = () => {
-            const grid = document.getElementById('reports-grid');
-            if(!grid) return;
-            grid.innerHTML = intelData.reports.map(report => `
-                <div class="report-card bg-panel border border-white/5 rounded-lg overflow-hidden group cursor-pointer flex flex-col" onclick="openModal(${report.id})">
-                    <div class="h-40 relative bg-obsidian">
-                        <img src="${report.image}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
-                        <div class="absolute top-3 right-3 bg-dark/80 text-gold font-mono text-[10px] px-2 py-1 rounded border border-gold/30">ID: ${report.id.toString().padStart(3, '0')}</div>
-                    </div>
-                    <div class="p-5 flex-1 flex flex-col">
-                        <h3 class="font-semibold text-cyan mb-2 text-sm uppercase">${report.title}</h3>
-                        <p class="text-zinc-400 text-xs line-clamp-2">${report.description}</p>
-                        <div class="mt-4 border border-cyan/30 text-cyan py-1.5 rounded font-mono text-[10px] text-center group-hover:bg-cyan group-hover:text-dark transition-all">ACCESS DATA</div>
-                    </div>
-                </div>
-            `).join('');
+        const setupAudioWave = () => {
+            const waveContainer = document.getElementById('audio-wave');
+            const heights = [1, 2, 3, 4, 1, 5, 2, 6, 2, 1, 4, 2];
+            let wavesHTML = '';
+            heights.forEach((v, i) => {
+                wavesHTML += `<div class="bg-cyan w-1 rounded-full animate-pulse" style="height: ${v * 4}px; animation-delay: ${i * 0.1}s"></div>`;
+            });
+            waveContainer.innerHTML = wavesHTML;
         };
 
-        // --- MODAL LOGIC (The Fix) ---
+        const renderGrid = () => {
+            const grid = document.getElementById('reports-grid');
+            let html = '';
+
+            intelData.reports.forEach((report) => {
+                const idStr = report.id.toString().padStart(3, '0');
+                html += `
+                    <div class="report-card bg-panel border border-white/5 hover:border-cyan/50 rounded-lg overflow-hidden group cursor-pointer flex flex-col" onclick="openModal(${report.id})">
+                        <div class="h-40 relative overflow-hidden bg-obsidian">
+                            <img 
+                                src="${report.image}" 
+                                alt="${report.title}" 
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100 intel-image"
+                                data-fallback-index="${report.id}"
+                            />
+                            <div class="absolute inset-0 bg-gradient-to-t from-panel to-transparent"></div>
+                            <div class="absolute top-3 right-3 bg-dark/80 backdrop-blur text-gold font-mono text-[10px] px-2 py-1 rounded border border-gold/30">
+                                ID: ${idStr}
+                            </div>
+                        </div>
+                        
+                        <div class="p-5 flex-1 flex flex-col pointer-events-none">
+                            <h3 class="font-semibold text-cyan mb-2 leading-tight group-hover:text-cyan/80 transition-colors">${report.title}</h3>
+                            <p class="text-zinc-400 text-sm mb-6 flex-1 line-clamp-2">${report.description}</p>
+                            
+                            <div class="mt-auto w-full group-hover:bg-cyan group-hover:text-dark border border-cyan/30 text-cyan py-2 rounded font-mono text-xs font-bold tracking-wider text-center transition-all duration-300">
+                                ACCESS DATA
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            grid.innerHTML = html;
+        };
+
+        const setupImageFallbacks = () => {
+            const images = document.querySelectorAll('.intel-image');
+            images.forEach(img => {
+                img.onerror = function() {
+                    const fallBackIndex = parseInt(this.getAttribute('data-fallback-index') || '0', 10);
+                    this.src = getFallbackImage(fallBackIndex);
+                    this.onerror = null; // Prevent infinite loop if fallback fails
+                };
+            });
+        };
+
+        // --- MODAL LOGIC ---
+        const modal = document.getElementById('report-modal');
+        const closeBtn = document.getElementById('close-modal-btn');
+
         window.openModal = (id) => {
             const report = intelData.reports.find(r => r.id === id);
             if(!report) return;
 
+            // Populate Text
             document.getElementById('modal-title').innerText = report.title;
             document.getElementById('modal-description').innerText = report.description;
-            document.getElementById('modal-image').src = report.image;
+            
+            // Populate Image
+            const modalImg = document.getElementById('modal-image');
+            modalImg.src = report.image;
+            modalImg.setAttribute('data-fallback-index', report.id);
+            modalImg.onerror = function() { // Re-attach error handler dynamically
+                this.src = getFallbackImage(report.id);
+                this.onerror = null;
+            };
 
+            // Populate Audio link
             const audioContainer = document.getElementById('audio-container');
-            const audio = document.getElementById('modal-audio');
-            const audioSource = document.getElementById('modal-audio-source');
+            const audioSrc = report.audioUrl;
+            const modalAudio = document.getElementById('modal-audio');
+            const modalAudioSource = document.getElementById('modal-audio-source');
 
-            if (report.audioUrl && report.audioUrl.trim() !== "") {
+            if (audioSrc && audioSrc.trim() !== '') {
                 audioContainer.classList.remove('hidden');
-                audioSource.src = report.audioUrl;
-                audio.load(); // تحميل ملف الصوت الجديد
+                modalAudioSource.src = audioSrc;
+                modalAudio.load();
+                
+                // Reset UI
+                if(window.updatePlayState) window.updatePlayState(false);
+                const progressBar = document.getElementById('audio-progress');
+                const currentTimeEl = document.getElementById('audio-current');
+                const totalTimeEl = document.getElementById('audio-total');
+                if(progressBar) progressBar.value = 0;
+                if(currentTimeEl) currentTimeEl.innerText = "00:00";
+                if(totalTimeEl) totalTimeEl.innerText = "00:00";
             } else {
                 audioContainer.classList.add('hidden');
-                audio.pause();
+                modalAudio.pause();
+                modalAudioSource.src = '';
             }
 
-            const modal = document.getElementById('report-modal');
+            // Display Modal
             modal.classList.remove('hidden');
-            setTimeout(() => modal.classList.remove('opacity-0'), 10);
+            // Timeout to allow DOM update before triggering CSS transition
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.classList.add('opacity-100');
+            }, 10);
         };
 
-        document.getElementById('close-modal-btn').onclick = () => {
-            const modal = document.getElementById('report-modal');
+        const closeModal = () => {
+            modal.classList.remove('opacity-100');
             modal.classList.add('opacity-0');
-            document.getElementById('modal-audio').pause();
-            setTimeout(() => modal.classList.add('hidden'), 300);
-        };
-
-        // --- AUDIO PLAYER CONTROLS ---
-        const setupAudioPlayer = () => {
-            const audio = document.getElementById('modal-audio');
-            const playPauseBtn = document.getElementById('play-pause-btn');
-            const progressBar = document.getElementById('audio-progress');
             
-            if(!playPauseBtn) return;
-
-            playPauseBtn.onclick = () => {
-                if (audio.paused) {
-                    audio.play();
-                    document.getElementById('icon-play').classList.add('hidden');
-                    document.getElementById('icon-pause').classList.remove('hidden');
-                } else {
-                    audio.pause();
-                    document.getElementById('icon-play').classList.remove('hidden');
-                    document.getElementById('icon-pause').classList.add('hidden');
+            // Pause Audio
+            const modalAudio = document.getElementById('modal-audio');
+            const modalAudioSource = document.getElementById('modal-audio-source');
+            modalAudio.pause();
+            
+            // Wait for transition to finish
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                if(modalAudioSource) {
+                    modalAudioSource.src = '';
+                    modalAudio.load();
                 }
-            };
-
-            audio.ontimeupdate = () => {
-                progressBar.value = (audio.currentTime / audio.duration) * 100 || 0;
-                document.getElementById('audio-current').innerText = formatTime(audio.currentTime);
-                document.getElementById('audio-total').innerText = formatTime(audio.duration);
-            };
-
-            progressBar.oninput = () => {
-                audio.currentTime = (progressBar.value / 100) * audio.duration;
-            };
+            }, 300);
         };
 
-        const formatTime = (s) => isNaN(s) ? "00:00" : new Date(s * 1000).toISOString().substr(14, 5);
+        // Event Listeners for Modal Closing
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if(e.target === modal) {
+                closeModal();
+            }
+        });
 
-        // --- START APP ---
+        // --- BOOTSTRAP APP ---
         document.addEventListener('DOMContentLoaded', () => {
             setDate();
             renderGrid();
+            setupAudioWave();
             setupAudioPlayer();
-            if (typeof lucide !== 'undefined') lucide.createIcons();
+            setupImageFallbacks();
+            
+            // Initialize Lucide Icons (converts <i data-lucide="..."> tags to SVG)
+            lucide.createIcons();
+            
+            // Initial wave pause
+            const waveBars = document.querySelectorAll('#audio-wave div');
+            waveBars.forEach(bar => bar.style.animationPlayState = 'paused');
         });
     </script>
 </body>
 </html>
-    
