@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI SCOUT | Intelligence Sovereignty</title>
+    <title>AI SCOUT | Intelligence Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -11,11 +11,8 @@
                 extend: {
                     colors: { cyan: '#00fff2', gold: '#ffcc00', dark: '#0a0a0a', obsidian: '#0f1115', panel: '#15181e' },
                     fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
-                    keyframes: {
-                        loading: { '0%': { width: '0%' }, '100%': { width: '100%' } }
-                    },
                     animation: {
-                        'loading-bar': 'loading 2.8s ease-in-out forwards'
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     }
                 }
             }
@@ -24,12 +21,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        body { background-color: #0a0a0a; color: #ffffff; -webkit-font-smoothing: antialiased; overflow: hidden; }
-        .report-card { transition: all 0.3s ease; border: 1px solid rgba(0, 255, 242, 0.1); }
-        .report-card:hover { border-color: rgba(0, 255, 242, 0.5); transform: translateY(-4px); }
+        body { background-color: #0a0a0a; color: #ffffff; overflow: hidden; }
         .content-ready { overflow-y: auto; }
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-thumb { background: #00fff2; border-radius: 10px; }
+        .logo-glow { filter: drop-shadow(0 0 8px rgba(0, 255, 242, 0.4)); }
     </style>
 </head>
 <body class="flex h-screen w-full bg-dark">
@@ -42,77 +36,71 @@
             </div>
         </div>
         <div class="mt-10 text-center">
-            <h2 class="text-cyan font-mono text-3xl font-black tracking-[0.4em] mb-4 uppercase">AI SCOUT</h2>
-            <div class="w-64 h-1 bg-white/5 rounded-full overflow-hidden mx-auto">
-                <div class="h-full bg-cyan animate-loading-bar"></div>
+            <h2 class="text-cyan font-mono text-3xl font-black tracking-[0.4em] animate-pulse">AI SCOUT</h2>
+            <div class="w-64 h-1 bg-white/5 mt-6 rounded-full overflow-hidden mx-auto">
+                <div class="h-full bg-cyan animate-[loading_2.5s_ease-in-out_forwards]"></div>
             </div>
-            <p class="text-zinc-500 font-mono text-[10px] mt-4 tracking-[0.2em] uppercase">Initializing Secure Terminal...</p>
         </div>
     </div>
 
     <aside class="w-20 md:w-64 bg-obsidian border-r border-cyan/20 flex flex-col hidden sm:flex">
         
-        <div class="flex items-center gap-3 p-6 border-b border-cyan/20 group cursor-pointer relative overflow-hidden">
-            <div class="relative flex items-center justify-center">
-                <div class="absolute w-10 h-10 bg-cyan/10 rounded-full animate-ping"></div>
-                <div class="relative w-12 h-12 border-2 border-cyan/50 rounded-lg flex items-center justify-center bg-dark group-hover:border-cyan transition-all duration-500">
-                    <div class="absolute inset-0 bg-cyan/5 animate-pulse"></div>
-                    <i data-lucide="scan-eye" class="text-cyan w-6 h-6 group-hover:scale-110 transition-transform duration-300"></i>
+        <div class="p-6 border-b border-cyan/10 group cursor-pointer">
+            <div class="flex items-center gap-4">
+                <div class="relative">
+                    <div class="absolute -inset-1 bg-cyan/20 rounded-lg blur opacity-30 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
+                    <div class="relative w-12 h-12 bg-black border border-cyan/50 rounded-lg flex items-center justify-center logo-glow transition-all duration-500 group-hover:border-cyan">
+                        <i data-lucide="scan-eye" class="text-cyan w-6 h-6 animate-pulse"></i>
+                    </div>
                 </div>
-            </div>
-            <div class="hidden md:block">
-                <h1 class="font-black text-cyan tracking-widest font-mono text-lg uppercase leading-none">
-                    AI<span class="text-white">SCOUT</span>
-                </h1>
-                <div class="flex items-center gap-1 mt-1">
-                    <span class="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse"></span>
-                    <span class="text-[7px] text-cyan/50 font-mono tracking-[0.2em] uppercase">System_Active_V2</span>
+                <div class="hidden md:block">
+                    <div class="font-black text-white text-lg tracking-tighter leading-none">AI <span class="text-cyan">SCOUT</span></div>
+                    <div class="text-[8px] text-cyan/40 font-mono tracking-widest mt-1 uppercase">Intel_Stream_v2</div>
                 </div>
             </div>
         </div>
-        
-        <nav class="p-4 space-y-2">
+        <nav class="p-4 space-y-2 flex-1">
             <div class="flex items-center gap-3 px-4 py-3 rounded bg-cyan/10 text-cyan border border-cyan/20">
-                <i data-lucide="terminal" class="w-4 h-4"></i>
-                <span class="hidden md:block font-mono text-[10px] font-bold tracking-widest uppercase">Console</span>
+                <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+                <span class="hidden md:block font-mono text-[10px] font-bold tracking-widest">DASHBOARD</span>
             </div>
         </nav>
     </aside>
 
-    <main id="main-content" class="flex-1 overflow-y-auto relative opacity-0 transition-opacity duration-1000">
+    <main id="main-content" class="flex-1 overflow-y-auto opacity-0 transition-opacity duration-1000">
         <header class="sticky top-0 z-20 bg-dark/90 backdrop-blur-md border-b border-white/5 py-4 px-10 flex justify-between items-center">
             <div class="flex items-center gap-2">
                 <div class="w-2 h-2 rounded-full bg-cyan shadow-[0_0_8px_#00fff2] animate-pulse"></div>
-                <span class="text-[10px] font-mono tracking-[0.3em] text-zinc-400 uppercase">Live_Secure_Signal</span>
+                <span class="text-[9px] font-mono tracking-[0.3em] text-zinc-400 uppercase">Live_Signal_Secure</span>
             </div>
+            <div class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Auth_Level: 4</div>
         </header>
 
         <div class="p-10 pb-24 max-w-7xl mx-auto">
             <div class="flex items-center gap-4 mb-12">
-                <h2 class="text-2xl font-bold tracking-[0.3em] text-zinc-100 uppercase">Intelligence Feed</h2>
-                <div class="flex-1 h-px bg-gradient-to-r from-cyan/40 to-transparent"></div>
+                <h2 class="text-2xl font-black tracking-[0.2em] text-white uppercase">Intelligence Feed</h2>
+                <div class="flex-1 h-px bg-gradient-to-r from-cyan/30 to-transparent"></div>
             </div>
-            <div id="reports-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                </div>
+            <div id="reports-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
         </div>
     </main>
 
     <div id="report-modal" class="fixed inset-0 z-50 flex items-center justify-center p-6 bg-dark/95 backdrop-blur-md hidden opacity-0 transition-all duration-300">
-        <div class="bg-panel border border-cyan/30 w-full max-w-2xl rounded-2xl overflow-hidden shadow-2xl flex flex-col">
+        <div class="bg-panel border border-cyan/30 w-full max-w-2xl rounded-2xl overflow-hidden flex flex-col">
             <div class="px-6 py-4 border-b border-white/10 flex justify-between items-center bg-obsidian">
-                <h2 id="modal-title" class="text-[10px] font-bold text-cyan uppercase tracking-widest font-mono">Report</h2>
-                <button id="close-modal-btn" class="text-zinc-500 hover:text-cyan"><i data-lucide="x"></i></button>
+                <h2 id="modal-title" class="text-[10px] font-bold text-cyan tracking-widest font-mono">ENCRYPTED_FILE</h2>
+                <button id="close-modal-btn" class="text-zinc-500 hover:text-cyan p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
-            <div class="p-10 flex flex-col gap-8">
-                <p id="modal-description" class="text-zinc-300 leading-relaxed text-sm text-right font-light" dir="rtl"></p>
-                <div id="audio-container" class="w-full bg-dark/50 p-6 rounded-xl border border-white/5 hidden">
+            <div class="p-10">
+                <p id="modal-description" class="text-zinc-300 leading-relaxed text-sm text-right pr-4 border-r-2 border-cyan/20" dir="rtl"></p>
+                <div id="audio-container" class="mt-8 w-full bg-dark/50 p-6 rounded-xl border border-white/5 hidden">
                     <div class="flex items-center gap-6">
-                        <button id="play-pause-btn" class="w-14 h-14 flex items-center justify-center bg-cyan text-dark rounded-full shadow-[0_0_20px_rgba(0,255,242,0.4)]">
+                        <button id="play-pause-btn" class="w-14 h-14 flex items-center justify-center bg-cyan text-dark rounded-full shadow-[0_0_20px_rgba(0,255,242,0.3)]">
                             <i data-lucide="play" id="icon-play" class="w-6 h-6 fill-current"></i>
                             <i data-lucide="pause" id="icon-pause" class="w-6 h-6 fill-current hidden"></i>
                         </button>
                         <div class="flex-1 space-y-3">
-                            <div class="flex justify-between text-[10px] font-mono text-cyan/70">
+                            <div class="flex justify-between text-[10px] font-mono text-cyan/70 uppercase">
                                 <span id="audio-current">00:00</span>
                                 <span id="audio-total">00:00</span>
                             </div>
@@ -128,25 +116,17 @@
     <script>
         const intelData = {
             reports: [
-                { 
-                    id: 1, 
-                    title: "Strategic Intel Report 01", 
-                    description: "تم استعادة هذا التقرير الصوتي بنجاح. يحتوي على تحليل استراتيجي للسيادة الرقمية وتطور أنظمة الذكاء الاصطناعي المستقلة للعام القادم.", 
-                    audioUrl: "./podcast1.mp3" 
-                }
+                { id: 1, title: "Strategic Intel 01", description: "تم استعادة هذا التقرير الصوتي بنجاح. يحتوي على تحليل استراتيجي للسيادة الرقمية وتطور أنظمة الذكاء الاصطناعي المستقلة للعام القادم.", audioUrl: "./podcast1.mp3" }
             ]
         };
 
-        // إدارة واجهة الدخول
         window.addEventListener('load', () => {
             setTimeout(() => {
-                const splash = document.getElementById('splash-screen');
-                const main = document.getElementById('main-content');
-                splash.classList.add('opacity-0');
-                main.classList.replace('opacity-0', 'opacity-100');
+                document.getElementById('splash-screen').classList.add('opacity-0');
+                document.getElementById('main-content').classList.replace('opacity-0', 'opacity-100');
                 document.body.classList.add('content-ready');
-                setTimeout(() => splash.classList.add('hidden'), 1000);
-            }, 3000);
+                setTimeout(() => document.getElementById('splash-screen').classList.add('hidden'), 1000);
+            }, 2500);
         });
 
         const renderGrid = () => {
@@ -154,8 +134,8 @@
             grid.innerHTML = intelData.reports.map(r => `
                 <div class="report-card bg-panel p-8 rounded-xl cursor-pointer group" onclick="openModal(${r.id})">
                     <div class="flex justify-between items-start mb-6">
-                        <div class="text-gold font-mono text-[9px] tracking-[0.3em] uppercase">NODE_${r.id}</div>
-                        <i data-lucide="fingerprint" class="w-8 h-8 text-cyan/20 group-hover:text-cyan transition-colors"></i>
+                        <div class="text-gold font-mono text-[9px] tracking-widest uppercase italic">NODE_${r.id}</div>
+                        <i data-lucide="fingerprint" class="w-6 h-6 text-cyan/20 group-hover:text-cyan transition-colors"></i>
                     </div>
                     <h3 class="text-white font-bold text-lg mb-4 uppercase tracking-tighter group-hover:text-cyan transition-colors">${r.title}</h3>
                     <p class="text-zinc-500 text-xs leading-relaxed line-clamp-2" dir="rtl">${r.description}</p>
@@ -165,69 +145,43 @@
         };
 
         const audio = document.getElementById('modal-audio');
-        const playPauseBtn = document.getElementById('play-pause-btn');
-
         window.openModal = (id) => {
             const r = intelData.reports.find(x => x.id === id);
-            document.getElementById('modal-title').innerText = `SECURE_ENTRY // ${r.id}`;
+            document.getElementById('modal-title').innerText = `NODE_ACCESS // ID_${r.id}`;
             document.getElementById('modal-description').innerText = r.description;
-            
-            const container = document.getElementById('audio-container');
             if (r.audioUrl) {
-                container.classList.remove('hidden');
+                document.getElementById('audio-container').classList.remove('hidden');
                 audio.src = r.audioUrl + "?v=" + new Date().getTime();
                 audio.load();
-                resetAudio();
-            } else {
-                container.classList.add('hidden');
             }
-
             const m = document.getElementById('report-modal');
             m.classList.remove('hidden');
             setTimeout(() => m.classList.replace('opacity-0', 'opacity-100'), 10);
         };
 
-        const resetAudio = () => {
-            audio.pause();
-            document.getElementById('icon-play').classList.remove('hidden');
-            document.getElementById('icon-pause').classList.add('hidden');
-            document.getElementById('audio-progress').value = 0;
-            document.getElementById('audio-current').innerText = "00:00";
-        };
-
-        playPauseBtn.onclick = () => {
-            if (audio.paused) {
-                audio.play();
-                document.getElementById('icon-play').classList.add('hidden');
-                document.getElementById('icon-pause').classList.remove('hidden');
-            } else {
-                audio.pause();
-                document.getElementById('icon-play').classList.remove('hidden');
-                document.getElementById('icon-pause').classList.add('hidden');
-            }
+        document.getElementById('play-pause-btn').onclick = () => {
+            if (audio.paused) { audio.play(); document.getElementById('icon-play').classList.add('hidden'); document.getElementById('icon-pause').classList.remove('hidden'); }
+            else { audio.pause(); document.getElementById('icon-play').classList.remove('hidden'); document.getElementById('icon-pause').classList.add('hidden'); }
         };
 
         audio.ontimeupdate = () => {
-            const progress = (audio.currentTime / audio.duration) * 100;
-            document.getElementById('audio-progress').value = progress || 0;
+            document.getElementById('audio-progress').value = (audio.currentTime / audio.duration) * 100 || 0;
             document.getElementById('audio-current').innerText = formatTime(audio.currentTime);
             if(!isNaN(audio.duration)) document.getElementById('audio-total').innerText = formatTime(audio.duration);
         };
 
-        const formatTime = (s) => {
-            const m = Math.floor(s / 60);
-            const sec = Math.floor(s % 60);
-            return `${m.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
-        };
-
+        const formatTime = (s) => `${Math.floor(s/60).toString().padStart(2,'0')}:${Math.floor(s%60).toString().padStart(2,'0')}`;
         document.getElementById('close-modal-btn').onclick = () => {
-            const m = document.getElementById('report-modal');
-            m.classList.replace('opacity-100', 'opacity-0');
+            document.getElementById('report-modal').classList.replace('opacity-100', 'opacity-0');
             audio.pause();
-            setTimeout(() => m.classList.add('hidden'), 300);
+            setTimeout(() => document.getElementById('report-modal').classList.add('hidden'), 300);
         };
 
         document.addEventListener('DOMContentLoaded', renderGrid);
+        lucide.createIcons();
     </script>
+    <style>
+        @keyframes loading { 0% { width: 0%; } 100% { width: 100%; } }
+    </style>
 </body>
 </html>
