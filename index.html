@@ -18,40 +18,43 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        body { background-color: #0a0a0a; color: #ffffff; -webkit-font-smoothing: antialiased; }
-        .report-card { transition: all 0.3s ease; border: 1px solid rgba(0, 255, 242, 0.1); }
-        .report-card:hover { border-color: rgba(0, 255, 242, 0.5); transform: translateY(-4px); }
+        body { background-color: #0a0a0a; color: #ffffff; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+        .report-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid rgba(0, 255, 242, 0.1); position: relative; overflow: hidden; }
+        .report-card:hover { border-color: rgba(0, 255, 242, 0.5); transform: translateY(-4px); box-shadow: 0 10px 30px -10px rgba(0, 255, 242, 0.2); }
+        .custom-range::-webkit-slider-runnable-track { background: rgba(255, 255, 255, 0.1); height: 4px; border-radius: 2px; }
+        .custom-range::-webkit-slider-thumb { -webkit-appearance: none; height: 12px; width: 12px; border-radius: 50%; background: #00fff2; margin-top: -4px; box-shadow: 0 0 10px #00fff2; }
     </style>
 </head>
-<body class="flex h-screen w-full bg-dark overflow-hidden">
+<body class="flex h-screen w-full bg-dark overflow-hidden font-sans">
 
-    <aside class="w-16 md:w-64 bg-obsidian border-r border-cyan/20 flex flex-col justify-between hidden sm:flex">
+    <aside class="w-20 md:w-64 bg-obsidian border-r border-cyan/20 flex flex-col justify-between hidden sm:flex">
         <div>
             <div class="p-6 border-b border-cyan/20 flex items-center gap-3">
-                <i data-lucide="radio" class="text-cyan w-6 h-6 animate-pulse"></i>
-                <span class="hidden md:block font-black text-cyan tracking-widest font-mono">AI SCOUT</span>
+                <i data-lucide="shield-check" class="text-cyan w-6 h-6 animate-pulse"></i>
+                <span class="hidden md:block font-black text-cyan tracking-widest font-mono text-sm">AI SCOUT INTEL</span>
             </div>
-            <nav class="p-4 space-y-2">
-                <div class="flex items-center gap-3 px-4 py-3 rounded bg-cyan/10 text-cyan border border-cyan/20">
-                    <i data-lucide="terminal" class="w-4 h-4"></i>
-                    <span class="hidden md:block font-mono text-[10px] font-bold tracking-widest">TERMINAL</span>
+            <nav class="p-4 space-y-4">
+                <div class="flex items-center gap-3 px-4 py-3 rounded bg-cyan/10 text-cyan border border-cyan/20 cursor-pointer">
+                    <i data-lucide="database" class="w-4 h-4"></i>
+                    <span class="hidden md:block font-mono text-[10px] font-bold tracking-widest">ACTIVE_ARCHIVE</span>
                 </div>
             </nav>
         </div>
     </aside>
 
-    <main class="flex-1 overflow-y-auto relative">
-        <header class="sticky top-0 z-20 bg-dark/80 backdrop-blur-md border-b border-white/5 py-4 px-10 flex justify-between items-center">
-            <div class="flex items-center gap-2">
+    <main class="flex-1 overflow-y-auto relative bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-cyan/5 via-transparent to-transparent">
+        <header class="sticky top-0 z-20 bg-dark/80 backdrop-blur-md border-b border-white/5 py-4 px-6 md:px-10 flex justify-between items-center">
+            <div class="flex items-center gap-3">
                 <div class="w-2 h-2 rounded-full bg-cyan shadow-[0_0_8px_#00fff2] animate-pulse"></div>
-                <span class="text-[10px] font-mono tracking-widest text-zinc-400 uppercase">System Active</span>
+                <span class="text-[10px] font-mono tracking-[0.2em] text-zinc-400 uppercase">System Status: Encrypted</span>
             </div>
+            <div class="text-[10px] font-mono text-zinc-500 hidden md:block">LOC: TERMINAL_01 // SEC_LEVEL: 4</div>
         </header>
 
-        <div class="p-10 pb-24 max-w-7xl mx-auto">
-            <div class="flex items-center gap-4 mb-8">
-                <h2 class="text-2xl font-bold tracking-widest text-zinc-100 uppercase">Intelligence Feed</h2>
-                <div class="flex-1 h-px bg-gradient-to-r from-cyan/50 to-transparent"></div>
+        <div class="p-6 md:p-10 pb-24 max-w-7xl mx-auto">
+            <div class="flex items-center gap-4 mb-12">
+                <h2 class="text-xl md:text-2xl font-black tracking-[0.3em] text-zinc-100 uppercase">Intelligence Feed</h2>
+                <div class="flex-1 h-px bg-gradient-to-r from-cyan/40 to-transparent"></div>
             </div>
 
             <div id="reports-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -59,27 +62,42 @@
         </div>
     </main>
 
-    <div id="report-modal" class="fixed inset-0 z-50 flex items-center justify-center p-6 bg-dark/95 backdrop-blur-sm hidden opacity-0 transition-all duration-300">
-        <div class="bg-[#111111] border border-cyan/40 w-full max-w-2xl rounded-xl overflow-hidden shadow-2xl flex flex-col">
-            <div class="px-6 py-4 border-b border-white/10 flex justify-between items-center">
-                <h2 id="modal-title" class="text-lg font-bold text-white uppercase tracking-widest">Report</h2>
-                <button id="close-modal-btn" class="text-zinc-500 hover:text-cyan transition-colors"><i data-lucide="x"></i></button>
-            </div>
-            <div class="p-8 flex flex-col md:flex-row gap-8">
-                <div class="flex-1" dir="rtl">
-                    <p id="modal-description" class="text-zinc-300 leading-relaxed text-sm text-right"></p>
+    <div id="report-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-dark/98 backdrop-blur-md hidden opacity-0 transition-all duration-300">
+        <div class="bg-panel border border-cyan/30 w-full max-w-2xl rounded-2xl overflow-hidden shadow-[0_0_50px_-12px_rgba(0,255,242,0.3)] flex flex-col">
+            <div class="px-6 py-4 border-b border-white/10 flex justify-between items-center bg-obsidian">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="file-text" class="w-4 h-4 text-cyan"></i>
+                    <h2 id="modal-title" class="text-xs font-bold text-white uppercase tracking-widest font-mono">Report Details</h2>
                 </div>
-                <div id="audio-container" class="w-full md:w-48 bg-obsidian p-4 rounded border border-white/5 hidden">
-                    <div class="flex flex-col gap-4">
-                        <div class="flex justify-between text-[10px] font-mono text-cyan/70">
-                            <span id="audio-current">00:00</span>
-                            <span id="audio-total">00:00</span>
+                <button id="close-modal-btn" class="p-2 hover:bg-white/5 rounded-full transition-colors group">
+                    <i data-lucide="x" class="w-5 h-5 text-zinc-500 group-hover:text-cyan"></i>
+                </button>
+            </div>
+            
+            <div class="p-6 md:p-10 flex flex-col gap-8">
+                <div class="space-y-4" dir="rtl">
+                    <p id="modal-description" class="text-zinc-300 leading-relaxed text-sm text-right font-light italic border-r-2 border-cyan/30 pr-4"></p>
+                </div>
+
+                <div id="audio-container" class="w-full bg-obsidian/50 p-6 rounded-xl border border-white/5 hidden">
+                    <div class="flex flex-col gap-6">
+                        <div class="flex justify-between items-end">
+                            <div class="space-y-1">
+                                <span class="text-[10px] font-mono text-cyan block uppercase tracking-tighter">Audio Stream</span>
+                                <span id="audio-current" class="text-xl font-mono font-bold text-white">00:00</span>
+                            </div>
+                            <span id="audio-total" class="text-[10px] font-mono text-zinc-500">00:00</span>
                         </div>
-                        <button id="play-pause-btn" class="w-12 h-12 mx-auto flex items-center justify-center bg-cyan/20 text-cyan rounded-full border border-cyan/40">
-                            <i data-lucide="play" id="icon-play" class="w-6 h-6 ml-1"></i>
-                            <i data-lucide="pause" id="icon-pause" class="w-6 h-6 hidden"></i>
-                        </button>
-                        <input type="range" id="audio-progress" value="0" class="w-full h-1 bg-white/10 rounded appearance-none accent-cyan">
+                        
+                        <div class="flex items-center gap-6">
+                            <button id="play-pause-btn" class="w-14 h-14 flex items-center justify-center bg-cyan text-dark rounded-full hover:scale-105 transition-transform shadow-[0_0_15px_rgba(0,255,242,0.4)]">
+                                <i data-lucide="play" id="icon-play" class="w-6 h-6 fill-current ml-1"></i>
+                                <i data-lucide="pause" id="icon-pause" class="w-6 h-6 fill-current hidden"></i>
+                            </button>
+                            <div class="flex-1">
+                                <input type="range" id="audio-progress" value="0" class="custom-range w-full bg-transparent appearance-none cursor-pointer">
+                            </div>
+                        </div>
                     </div>
                     <audio id="modal-audio" preload="auto"></audio>
                 </div>
@@ -88,28 +106,43 @@
     </div>
 
     <script>
+        // البيانات المحدثة - تأكد أن اسم الملف podcast1.mp3 مطابق تماماً لما هو في GitHub
         const intelData = {
             reports: [
                 { 
                     id: 1, 
-                    title: "Strategic Intel 01", 
-                    description: "تم تحديث البودكاست بنجاح. هذا التقرير يحتوي على البيانات الصوتية المرفوعة مباشرة على الخادم لضمان أعلى سرعة تشغيل وأمان.", 
+                    title: "Strategic Intel Report 01", 
+                    description: "هذا التقرير الصوتي تم رفعه مباشرة على خوادم النظام لضمان التشفير التام والوصول السريع. يتناول التقرير استراتيجيات الذكاء الاصطناعي المتقدمة وتحليل البيانات الميدانية.", 
                     audioUrl: "./podcast1.mp3" 
                 },
-                { id: 2, title: "Operational Scout 02", description: "تقرير تكتيكي ميداني.", audioUrl: "" }
+                { 
+                    id: 2, 
+                    title: "Operational Log 02", 
+                    description: "سجل عملياتي مشفر. لا توجد بيانات صوتية متاحة لهذا المستوى حالياً.", 
+                    audioUrl: "" 
+                }
             ]
         };
 
         const renderGrid = () => {
             const grid = document.getElementById('reports-grid');
             grid.innerHTML = intelData.reports.map(r => `
-                <div class="report-card bg-panel p-6 rounded-lg cursor-pointer group" onclick="openModal(${r.id})">
-                    <div class="text-gold font-mono text-[10px] mb-2">ID: ${r.id.toString().padStart(3, '0')}</div>
-                    <h3 class="text-cyan font-bold mb-3 uppercase tracking-tight">${r.title}</h3>
-                    <p class="text-zinc-500 text-xs line-clamp-2" dir="rtl">${r.description}</p>
-                    <div class="mt-4 pt-4 border-t border-white/5 text-[10px] text-cyan font-mono opacity-0 group-hover:opacity-100 transition-opacity">ACCESS_DATA ></div>
+                <div class="report-card bg-panel p-8 rounded-xl cursor-pointer group" onclick="openModal(${r.id})">
+                    <div class="absolute top-0 right-0 p-4 opacity-10">
+                        <i data-lucide="fingerprint" class="w-12 h-12 text-cyan"></i>
+                    </div>
+                    <div class="text-gold font-mono text-[9px] mb-4 tracking-widest uppercase">Classification: Alpha-${r.id}</div>
+                    <h3 class="text-white font-black text-lg mb-4 uppercase tracking-tighter group-hover:text-cyan transition-colors">${r.title}</h3>
+                    <p class="text-zinc-500 text-xs leading-relaxed mb-6" dir="rtl">${r.description.substring(0, 80)}...</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-mono text-cyan/60">STATUS: DECRYPTED</span>
+                        <div class="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center group-hover:border-cyan/50 group-hover:bg-cyan/5 transition-all">
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-zinc-600 group-hover:text-cyan"></i>
+                        </div>
+                    </div>
                 </div>
             `).join('');
+            lucide.createIcons();
         };
 
         const audio = document.getElementById('modal-audio');
@@ -117,16 +150,21 @@
 
         window.openModal = (id) => {
             const r = intelData.reports.find(x => x.id === id);
-            document.getElementById('modal-title').innerText = r.title;
+            if (!r) return;
+
+            document.getElementById('modal-title').innerText = `ENCRYPTED_FILE // ${r.id}`;
             document.getElementById('modal-description').innerText = r.description;
             
             const container = document.getElementById('audio-container');
             if (r.audioUrl) {
                 container.classList.remove('hidden');
-                audio.src = r.audioUrl;
+                // إضافة timestamp لمنع التخزين المؤقت (Cache) وضمان تحميل أحدث نسخة
+                audio.src = r.audioUrl + "?t=" + new Date().getTime();
                 audio.load();
+                resetAudioUI();
             } else {
                 container.classList.add('hidden');
+                audio.pause();
             }
 
             const m = document.getElementById('report-modal');
@@ -134,9 +172,16 @@
             setTimeout(() => m.classList.replace('opacity-0', 'opacity-100'), 10);
         };
 
+        const resetAudioUI = () => {
+            document.getElementById('icon-play').classList.remove('hidden');
+            document.getElementById('icon-pause').classList.add('hidden');
+            document.getElementById('audio-progress').value = 0;
+            document.getElementById('audio-current').innerText = "00:00";
+        };
+
         playPauseBtn.onclick = () => {
             if (audio.paused) {
-                audio.play();
+                audio.play().catch(e => console.error("Audio playback failed:", e));
                 document.getElementById('icon-play').classList.add('hidden');
                 document.getElementById('icon-pause').classList.remove('hidden');
             } else {
@@ -147,14 +192,20 @@
         };
 
         audio.ontimeupdate = () => {
-            const progress = (audio.currentTime / audio.duration) * 100;
-            document.getElementById('audio-progress').value = progress || 0;
-            document.getElementById('audio-current').innerText = formatTime(audio.currentTime);
-            document.getElementById('audio-total').innerText = formatTime(audio.duration);
+            if (!isNaN(audio.duration)) {
+                const progress = (audio.currentTime / audio.duration) * 100;
+                document.getElementById('audio-progress').value = progress;
+                document.getElementById('audio-current').innerText = formatTime(audio.currentTime);
+                document.getElementById('audio-total').innerText = formatTime(audio.duration);
+            }
+        };
+
+        document.getElementById('audio-progress').oninput = (e) => {
+            const time = (e.target.value / 100) * audio.duration;
+            audio.currentTime = time;
         };
 
         const formatTime = (s) => {
-            if (isNaN(s)) return "00:00";
             const m = Math.floor(s / 60);
             const sec = Math.floor(s % 60);
             return `${m.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
@@ -167,10 +218,7 @@
             setTimeout(() => m.classList.add('hidden'), 300);
         };
 
-        document.addEventListener('DOMContentLoaded', () => {
-            renderGrid();
-            lucide.createIcons();
-        });
+        document.addEventListener('DOMContentLoaded', renderGrid);
     </script>
 </body>
 </html>
