@@ -223,10 +223,10 @@
                         </p>
                     </div>
                     
-                    <div class="w-full md:w-64 bg-dark border border-white/10 p-5 rounded flex flex-col">
+                    <div id="audio-container" class="w-full md:w-64 bg-dark border border-white/10 p-5 rounded flex flex-col hidden">
                         <div class="flex items-center gap-2 mb-4 text-cyan">
                             <i data-lucide="volume-2" class="w-4 h-4"></i>
-                            <span class="font-mono text-xs tracking-widest">AUDIO TRANSMISSION</span>
+                            <span class="font-mono text-xs tracking-widest">AUDIO TRANSMISSION (.m4a)</span>
                         </div>
                         
                         <div class="bg-obsidian border border-white/5 rounded p-3 mb-4 flex items-center justify-center h-16 relative overflow-hidden">
@@ -236,8 +236,23 @@
                             </div>
                         </div>
                         
-                        <audio id="modal-audio" controls class="w-full h-8 flex-1 mt-auto filter invert pt-1 opacity-80 hover:opacity-100 transition-opacity">
-                            <source src="" type="audio/mpeg" />
+                        <!-- Custom Audio Controls -->
+                        <div class="flex flex-col gap-2 mt-auto">
+                            <div class="flex justify-between text-[10px] font-mono text-zinc-500 mb-1">
+                                <span id="audio-current">00:00</span>
+                                <span id="audio-total">00:00</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <button id="play-pause-btn" class="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-cyan/20 hover:bg-cyan/40 text-cyan rounded-full transition-colors cursor-pointer">
+                                    <i data-lucide="play" id="icon-play" class="w-4 h-4 ml-0.5"></i>
+                                    <i data-lucide="pause" id="icon-pause" class="w-4 h-4 hidden"></i>
+                                </button>
+                                <input type="range" id="audio-progress" value="0" min="0" max="100" class="w-full h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-cyan">
+                            </div>
+                        </div>
+                        
+                        <audio id="modal-audio" class="hidden">
+                            <source id="modal-audio-source" src="" type="audio/mp4" />
                             Your browser does not support the audio element.
                         </audio>
                     </div>
@@ -256,30 +271,30 @@
                 image: "./hero_main.png"
             },
             reports: [
-                { id: 1, title: "Strategic Intel Report 01", description: "Deep analysis of operational field data.", image: "./hero1.png" },
-                { id: 2, title: "Operational Scout 02", description: "Real-time tactical coordination updates.", image: "./hero2.png" },
-                { id: 3, title: "Digital Surveillance 03", description: "Technical infrastructure security monitoring.", image: "./hero3.png" },
-                { id: 4, title: "Data Mining Archive 04", description: "Extraction of patterns from complex datasets.", image: "./hero4.png" },
-                { id: 5, title: "Field Ops Logistics 05", description: "Strategic deployment and resource mapping.", image: "./hero5.png" },
-                { id: 6, title: "Signal Intelligence 06", description: "Communication interception and processing.", image: "./hero6.png" },
-                { id: 7, title: "Tactical Assessment 07", description: "Evaluating combat readiness and positioning.", image: "./hero7.png" },
-                { id: 8, title: "Urban Reconnaissance 08", description: "Mapping urban operational environments.", image: "./hero8.png" },
-                { id: 9, title: "Cyber Defense Protocol 09", description: "Advanced infrastructure protection systems.", image: "./hero9.png" },
-                { id: 10, title: "Intelligence Summary 10", description: "Weekly strategic activity briefing.", image: "./hero10.png" },
-                { id: 11, title: "Risk Mitigation 11", description: "Identifying potential operational threats.", image: "./hero11.png" },
-                { id: 12, title: "Global Intel Network 12", description: "Updates from the international scouting grid.", image: "./hero12.png" },
-                { id: 13, title: "Autonomous Systems 13", description: "Monitoring AI-driven operational units.", image: "./hero13.png" },
-                { id: 14, title: "Encrypted Comms 14", description: "Security status of private channels.", image: "./hero14.png" },
-                { id: 15, title: "Shadow Ops Analysis 15", description: "Tracking non-conventional movements.", image: "./hero15.png" },
-                { id: 16, title: "Predictive Modeling 16", description: "AI forecasts for tactical scenarios.", image: "./hero16.png" },
-                { id: 17, title: "Bio-Metric Security 17", description: "Analysis of access control systems.", image: "./hero17.png" },
-                { id: 18, title: "Logistics Grid 18", description: "Supply chain integrity tracking.", image: "./hero18.png" },
-                { id: 19, title: "Neural Link Status 19", description: "Intelligence interface connectivity reports.", image: "./hero19.png" },
-                { id: 20, title: "Geospatial Intel 20", description: "Satellite imagery and terrain analysis.", image: "./hero20.png" },
-                { id: 21, title: "Target Identification 21", description: "Object recognition and classification data.", image: "./hero21.png" },
-                { id: 22, title: "Rapid Response 22", description: "Evaluation of quick-deployment units.", image: "./hero22.png" },
-                { id: 23, title: "Crisis Management 23", description: "Strategies for emergency operational shifts.", image: "./hero23.png" },
-                { id: 24, title: "Final Archive Sync 24", description: "Consolidated database update for 2026.", image: "./hero24.png" }
+                { id: 1, title: "Strategic Intel Report 01", description: "Deep analysis of operational field data.", image: "./hero1.png", audioUrl: "" },
+                { id: 2, title: "Operational Scout 02", description: "Real-time tactical coordination updates.", image: "./hero2.png", audioUrl: "" },
+                { id: 3, title: "Digital Surveillance 03", description: "Technical infrastructure security monitoring.", image: "./hero3.png", audioUrl: "" },
+                { id: 4, title: "Data Mining Archive 04", description: "Extraction of patterns from complex datasets.", image: "./hero4.png", audioUrl: "" },
+                { id: 5, title: "Field Ops Logistics 05", description: "Strategic deployment and resource mapping.", image: "./hero5.png", audioUrl: "" },
+                { id: 6, title: "Signal Intelligence 06", description: "Communication interception and processing.", image: "./hero6.png", audioUrl: "" },
+                { id: 7, title: "Tactical Assessment 07", description: "Evaluating combat readiness and positioning.", image: "./hero7.png", audioUrl: "" },
+                { id: 8, title: "Urban Reconnaissance 08", description: "Mapping urban operational environments.", image: "./hero8.png", audioUrl: "" },
+                { id: 9, title: "Cyber Defense Protocol 09", description: "Advanced infrastructure protection systems.", image: "./hero9.png", audioUrl: "" },
+                { id: 10, title: "Intelligence Summary 10", description: "Weekly strategic activity briefing.", image: "./hero10.png", audioUrl: "" },
+                { id: 11, title: "Risk Mitigation 11", description: "Identifying potential operational threats.", image: "./hero11.png", audioUrl: "" },
+                { id: 12, title: "Global Intel Network 12", description: "Updates from the international scouting grid.", image: "./hero12.png", audioUrl: "" },
+                { id: 13, title: "Autonomous Systems 13", description: "Monitoring AI-driven operational units.", image: "./hero13.png", audioUrl: "" },
+                { id: 14, title: "Encrypted Comms 14", description: "Security status of private channels.", image: "./hero14.png", audioUrl: "" },
+                { id: 15, title: "Shadow Ops Analysis 15", description: "Tracking non-conventional movements.", image: "./hero15.png", audioUrl: "" },
+                { id: 16, title: "Predictive Modeling 16", description: "AI forecasts for tactical scenarios.", image: "./hero16.png", audioUrl: "" },
+                { id: 17, title: "Bio-Metric Security 17", description: "Analysis of access control systems.", image: "./hero17.png", audioUrl: "" },
+                { id: 18, title: "Logistics Grid 18", description: "Supply chain integrity tracking.", image: "./hero18.png", audioUrl: "" },
+                { id: 19, title: "Neural Link Status 19", description: "Intelligence interface connectivity reports.", image: "./hero19.png", audioUrl: "" },
+                { id: 20, title: "Geospatial Intel 20", description: "Satellite imagery and terrain analysis.", image: "./hero20.png", audioUrl: "" },
+                { id: 21, title: "Target Identification 21", description: "Object recognition and classification data.", image: "./hero21.png", audioUrl: "" },
+                { id: 22, title: "Rapid Response 22", description: "Evaluation of quick-deployment units.", image: "./hero22.png", audioUrl: "" },
+                { id: 23, title: "Crisis Management 23", description: "Strategies for emergency operational shifts.", image: "./hero23.png", audioUrl: "" },
+                { id: 24, title: "Final Archive Sync 24", description: "Consolidated database update for 2026.", image: "./hero24.png", audioUrl: "" }
             ]
         };
 
@@ -293,6 +308,73 @@
         ];
 
         const getFallbackImage = (index) => TECH_FALLBACK_IMAGES[index % TECH_FALLBACK_IMAGES.length];
+
+        // --- AUDIO PLAYER LOGIC ---
+        const setupAudioPlayer = () => {
+            const audioElement = document.getElementById('modal-audio');
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const iconPlay = document.getElementById('icon-play');
+            const iconPause = document.getElementById('icon-pause');
+            const progressBar = document.getElementById('audio-progress');
+            const currentTimeEl = document.getElementById('audio-current');
+            const totalTimeEl = document.getElementById('audio-total');
+            
+            if(!audioElement || !playPauseBtn) return;
+
+            const formatTime = (time) => {
+                if (isNaN(time)) return "00:00";
+                const mins = Math.floor(time / 60);
+                const secs = Math.floor(time % 60);
+                return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            };
+
+            let isPlaying = false;
+
+            window.updatePlayState = (playing) => {
+                isPlaying = playing;
+                const waveBars = document.querySelectorAll('#audio-wave div');
+                if (playing) {
+                    iconPlay.classList.add('hidden');
+                    iconPause.classList.remove('hidden');
+                    waveBars.forEach(bar => bar.style.animationPlayState = 'running');
+                } else {
+                    iconPlay.classList.remove('hidden');
+                    iconPause.classList.add('hidden');
+                    waveBars.forEach(bar => bar.style.animationPlayState = 'paused');
+                }
+            };
+
+            playPauseBtn.addEventListener('click', () => {
+                if (isPlaying) {
+                    audioElement.pause();
+                } else {
+                    audioElement.play();
+                }
+            });
+
+            audioElement.addEventListener('play', () => window.updatePlayState(true));
+            audioElement.addEventListener('pause', () => window.updatePlayState(false));
+
+            audioElement.addEventListener('loadedmetadata', () => {
+                totalTimeEl.innerText = formatTime(audioElement.duration);
+                progressBar.max = Math.floor(audioElement.duration);
+            });
+
+            audioElement.addEventListener('timeupdate', () => {
+                currentTimeEl.innerText = formatTime(audioElement.currentTime);
+                if(document.activeElement !== progressBar) { // Don't snap while dragging
+                    progressBar.value = Math.floor(audioElement.currentTime);
+                }
+            });
+
+            progressBar.addEventListener('input', () => {
+                currentTimeEl.innerText = formatTime(progressBar.value);
+            });
+
+            progressBar.addEventListener('change', () => {
+                audioElement.currentTime = progressBar.value;
+            });
+        };
 
         // --- UI INITIALIZATION ---
 
@@ -380,10 +462,29 @@
             };
 
             // Populate Audio link
-            const audioSrc = report.link || "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+            const audioContainer = document.getElementById('audio-container');
+            const audioSrc = report.audioUrl;
             const modalAudio = document.getElementById('modal-audio');
-            modalAudio.src = audioSrc;
-            modalAudio.load();
+            const modalAudioSource = document.getElementById('modal-audio-source');
+
+            if (audioSrc && audioSrc.trim() !== '') {
+                audioContainer.classList.remove('hidden');
+                modalAudioSource.src = audioSrc;
+                modalAudio.load();
+                
+                // Reset UI
+                if(window.updatePlayState) window.updatePlayState(false);
+                const progressBar = document.getElementById('audio-progress');
+                const currentTimeEl = document.getElementById('audio-current');
+                const totalTimeEl = document.getElementById('audio-total');
+                if(progressBar) progressBar.value = 0;
+                if(currentTimeEl) currentTimeEl.innerText = "00:00";
+                if(totalTimeEl) totalTimeEl.innerText = "00:00";
+            } else {
+                audioContainer.classList.add('hidden');
+                modalAudio.pause();
+                modalAudioSource.src = '';
+            }
 
             // Display Modal
             modal.classList.remove('hidden');
@@ -400,11 +501,16 @@
             
             // Pause Audio
             const modalAudio = document.getElementById('modal-audio');
+            const modalAudioSource = document.getElementById('modal-audio-source');
             modalAudio.pause();
             
             // Wait for transition to finish
             setTimeout(() => {
                 modal.classList.add('hidden');
+                if(modalAudioSource) {
+                    modalAudioSource.src = '';
+                    modalAudio.load();
+                }
             }, 300);
         };
 
@@ -421,10 +527,15 @@
             setDate();
             renderGrid();
             setupAudioWave();
+            setupAudioPlayer();
             setupImageFallbacks();
             
             // Initialize Lucide Icons (converts <i data-lucide="..."> tags to SVG)
             lucide.createIcons();
+            
+            // Initial wave pause
+            const waveBars = document.querySelectorAll('#audio-wave div');
+            waveBars.forEach(bar => bar.style.animationPlayState = 'paused');
         });
     </script>
 </body>
