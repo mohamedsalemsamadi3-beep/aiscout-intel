@@ -213,56 +213,7 @@
                 </div>
 
                 <div class="flex flex-col md:flex-row gap-8">
-                    <div class="flex-1">
-                        <h3 class="text-gold font-mono text-xs tracking-widest mb-3 border-b border-gold/20 pb-2">INTELLIGENCE BRIEFING</h3>
-                        <p id="modal-description" class="text-zinc-300 leading-relaxed text-sm md:text-base">
-                            Report description goes here.
-                        </p>
-                        <p class="text-zinc-500 mt-4 text-sm">
-                            Further decryption required for extended analysis. Proceed with standard clearance protocols.
-                        </p>
-                    </div>
-                    
-                    <div id="audio-container" class="w-full md:w-64 bg-dark border border-white/10 p-5 rounded flex flex-col hidden">
-                        <div class="flex items-center gap-2 mb-4 text-cyan">
-                            <i data-lucide="volume-2" class="w-4 h-4"></i>
-                            <span class="font-mono text-xs tracking-widest">AUDIO TRANSMISSION (.m4a)</span>
-                        </div>
-                        
-                        <div class="bg-obsidian border border-white/5 rounded p-3 mb-4 flex items-center justify-center h-16 relative overflow-hidden">
-                            <!-- Faux generic audio wave visualization -->
-                            <div class="flex items-center gap-1 w-full justify-between opacity-50 px-2" id="audio-wave">
-                                <!-- Bars injected by JS -->
-                            </div>
-                        </div>
-                        
-                        <!-- Custom Audio Controls -->
-                        <div class="flex flex-col gap-2 mt-auto">
-                            <div class="flex justify-between text-[10px] font-mono text-zinc-500 mb-1">
-                                <span id="audio-current">00:00</span>
-                                <span id="audio-total">00:00</span>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <button id="play-pause-btn" class="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-cyan/20 hover:bg-cyan/40 text-cyan rounded-full transition-colors cursor-pointer">
-                                    <i data-lucide="play" id="icon-play" class="w-4 h-4 ml-0.5"></i>
-                                    <i data-lucide="pause" id="icon-pause" class="w-4 h-4 hidden"></i>
-                                </button>
-                                <input type="range" id="audio-progress" value="0" min="0" max="100" class="w-full h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-cyan">
-                            </div>
-                        </div>
-                        
-                        <audio id="modal-audio" class="hidden">
-                            <source id="modal-audio-source" src="" type="audio/mp4" />
-                            Your browser does not support the audio element.
-                        </audio>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Application Logic (All JavaScript) -->
-    <script>
+     <script>
         // --- DATA LAYER ---
         const intelData = {
             hero: {
@@ -271,47 +222,42 @@
                 image: "./hero_main.png"
             },
             reports: [
-                { id: 1, title: "Strategic Intel Report 01", description: "Deep analysis of operational field data.", image: "./hero1.png", audioUrl: "https://drive.google.com/uc?id=1tAIpprRdAkouSzD91RgziNxbByExpnqF" },
-                { id: 2, title: "Operational Scout 02", description: "Real-time tactical coordination updates.", image: "./hero2.png", audioUrl: "https://drive.google.com/uc?id=1SrgKMCYpWwrOq-ccLD70hOVGCS3hgxcf" },
-                { id: 3, title: "Digital Surveillance 03", description: "Technical infrastructure security monitoring.", image: "./hero3.png", audioUrl: "" },
-                { id: 4, title: "Data Mining Archive 04", description: "Extraction of patterns from complex datasets.", image: "./hero4.png", audioUrl: "" },
-                { id: 5, title: "Field Ops Logistics 05", description: "Strategic deployment and resource mapping.", image: "./hero5.png", audioUrl: "" },
-                { id: 6, title: "Signal Intelligence 06", description: "Communication interception and processing.", image: "./hero6.png", audioUrl: "" },
-                { id: 7, title: "Tactical Assessment 07", description: "Evaluating combat readiness and positioning.", image: "./hero7.png", audioUrl: "" },
-                { id: 8, title: "Urban Reconnaissance 08", description: "Mapping urban operational environments.", image: "./hero8.png", audioUrl: "" },
-                { id: 9, title: "Cyber Defense Protocol 09", description: "Advanced infrastructure protection systems.", image: "./hero9.png", audioUrl: "" },
-                { id: 10, title: "Intelligence Summary 10", description: "Weekly strategic activity briefing.", image: "./hero10.png", audioUrl: "" },
-                { id: 11, title: "Risk Mitigation 11", description: "Identifying potential operational threats.", image: "./hero11.png", audioUrl: "" },
-                { id: 12, title: "Global Intel Network 12", description: "Updates from the international scouting grid.", image: "./hero12.png", audioUrl: "" },
-                { id: 13, title: "Autonomous Systems 13", description: "Monitoring AI-driven operational units.", image: "./hero13.png", audioUrl: "" },
-                { id: 14, title: "Encrypted Comms 14", description: "Security status of private channels.", image: "./hero14.png", audioUrl: "" },
-                { id: 15, title: "Shadow Ops Analysis 15", description: "Tracking non-conventional movements.", image: "./hero15.png", audioUrl: "" },
-                { id: 16, title: "Predictive Modeling 16", description: "AI forecasts for tactical scenarios.", image: "./hero16.png", audioUrl: "" },
-                { id: 17, title: "Bio-Metric Security 17", description: "Analysis of access control systems.", image: "./hero17.png", audioUrl: "" },
-                { id: 18, title: "Logistics Grid 18", description: "Supply chain integrity tracking.", image: "./hero18.png", audioUrl: "" },
-                { id: 19, title: "Neural Link Status 19", description: "Intelligence interface connectivity reports.", image: "./hero19.png", audioUrl: "" },
-                { id: 20, title: "Geospatial Intel 20", description: "Satellite imagery and terrain analysis.", image: "./hero20.png", audioUrl: "" },
-                { id: 21, title: "Target Identification 21", description: "Object recognition and classification data.", image: "./hero21.png", audioUrl: "" },
-                { id: 22, title: "Rapid Response 22", description: "Evaluation of quick-deployment units.", image: "./hero22.png", audioUrl: "" },
-                { id: 23, title: "Crisis Management 23", description: "Strategies for emergency operational shifts.", image: "./hero23.png", audioUrl: "" },
-                { id: 24, title: "Final Archive Sync 24", description: "Consolidated database update for 2026.", image: "./hero24.png", audioUrl: "" }
+                { 
+                  id: 1, 
+                  title: "Strategic Intel Report 01", 
+                  description: "تحليل شامل للبيانات الميدانية. هذا التقرير يركز على استراتيجيات النمو الرقمي وتأمين البيانات السيادية.", 
+                  image: "./hero1.png", 
+                  // تم تصحيح الرابط ليكون رابط بث مباشر (uc)
+                  audioUrl: "https://docs.google.com/uc?export=open&id=1tAIpprRdAkouSzD91RgziNxbByExpnqF" 
+                },
+                { 
+                  id: 2, 
+                  title: "Operational Scout 02", 
+                  description: "تقرير العمليات التكتيكية. يتناول هذا البودكاست تفاصيل التنسيق الميداني الأخير.", 
+                  image: "./hero2.png", 
+                  audioUrl: "https://docs.google.com/uc?export=open&id=1SrgKMCYpWwrOq-ccLD70hOVGCS3hgxcf" 
+                },
+                { 
+                  id: 3, 
+                  title: "Digital Surveillance 03", 
+                  description: "مقال تقني حول أنظمة المراقبة الذكية. (هذا التقرير لا يحتوي على بودكاست، سيظهر النص فقط).", 
+                  image: "./hero3.png", 
+                  audioUrl: "" 
+                }
+                // يمكنك إضافة بقية التقارير هنا بنفس التنسيق
             ]
         };
 
-        // --- FALLBACK IMAGES (if actual files are missing in root folder) ---
+        // --- FALLBACK IMAGES ---
         const TECH_FALLBACK_IMAGES = [
             "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=600",
-            "https://images.unsplash.com/photo-1510511459019-5efa3702468d?auto=format&fit=crop&q=80&w=600",
-            "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=600",
-            "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=600",
-            "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=600"
+            "https://images.unsplash.com/photo-1510511459019-5efa3702468d?auto=format&fit=crop&q=80&w=600"
         ];
-
         const getFallbackImage = (index) => TECH_FALLBACK_IMAGES[index % TECH_FALLBACK_IMAGES.length];
 
         // --- AUDIO PLAYER LOGIC ---
         const setupAudioPlayer = () => {
-            const audioElement = document.getElementById('modal-audio');
+            const audio = document.getElementById('modal-audio');
             const playPauseBtn = document.getElementById('play-pause-btn');
             const iconPlay = document.getElementById('icon-play');
             const iconPause = document.getElementById('icon-pause');
@@ -319,7 +265,7 @@
             const currentTimeEl = document.getElementById('audio-current');
             const totalTimeEl = document.getElementById('audio-total');
             
-            if(!audioElement || !playPauseBtn) return;
+            if(!audio || !playPauseBtn) return;
 
             const formatTime = (time) => {
                 if (isNaN(time)) return "00:00";
@@ -328,215 +274,107 @@
                 return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
             };
 
-            let isPlaying = false;
-
-            window.updatePlayState = (playing) => {
-                isPlaying = playing;
-                const waveBars = document.querySelectorAll('#audio-wave div');
-                if (playing) {
-                    iconPlay.classList.add('hidden');
-                    iconPause.classList.remove('hidden');
-                    waveBars.forEach(bar => bar.style.animationPlayState = 'running');
+            playPauseBtn.onclick = () => {
+                if (audio.paused) {
+                    audio.play().catch(e => console.error("Error playing:", e));
                 } else {
-                    iconPlay.classList.remove('hidden');
-                    iconPause.classList.add('hidden');
-                    waveBars.forEach(bar => bar.style.animationPlayState = 'paused');
+                    audio.pause();
                 }
             };
 
-            playPauseBtn.addEventListener('click', () => {
-                if (isPlaying) {
-                    audioElement.pause();
-                } else {
-                    audioElement.play();
-                }
-            });
+            audio.onplay = () => {
+                iconPlay.classList.add('hidden');
+                iconPause.classList.remove('hidden');
+            };
 
-            audioElement.addEventListener('play', () => window.updatePlayState(true));
-            audioElement.addEventListener('pause', () => window.updatePlayState(false));
+            audio.onpause = () => {
+                iconPlay.classList.remove('hidden');
+                iconPause.classList.add('hidden');
+            };
 
-            audioElement.addEventListener('loadedmetadata', () => {
-                totalTimeEl.innerText = formatTime(audioElement.duration);
-                progressBar.max = Math.floor(audioElement.duration);
-            });
+            audio.onloadedmetadata = () => {
+                totalTimeEl.innerText = formatTime(audio.duration);
+                progressBar.max = Math.floor(audio.duration);
+            };
 
-            audioElement.addEventListener('timeupdate', () => {
-                currentTimeEl.innerText = formatTime(audioElement.currentTime);
-                if(document.activeElement !== progressBar) { // Don't snap while dragging
-                    progressBar.value = Math.floor(audioElement.currentTime);
-                }
-            });
+            audio.ontimeupdate = () => {
+                currentTimeEl.innerText = formatTime(audio.currentTime);
+                progressBar.value = Math.floor(audio.currentTime);
+            };
 
-            progressBar.addEventListener('input', () => {
-                currentTimeEl.innerText = formatTime(progressBar.value);
-            });
-
-            progressBar.addEventListener('change', () => {
-                audioElement.currentTime = progressBar.value;
-            });
+            progressBar.oninput = () => {
+                audio.currentTime = progressBar.value;
+            };
         };
 
         // --- UI INITIALIZATION ---
-
         const setDate = () => {
             const dateStr = new Date().toISOString().split('T')[0].replace(/-/g, '.');
             document.getElementById('header-date').innerText = dateStr + ' // INTEL_SYNC';
         };
 
-        const setupAudioWave = () => {
-            const waveContainer = document.getElementById('audio-wave');
-            const heights = [1, 2, 3, 4, 1, 5, 2, 6, 2, 1, 4, 2];
-            let wavesHTML = '';
-            heights.forEach((v, i) => {
-                wavesHTML += `<div class="bg-cyan w-1 rounded-full animate-pulse" style="height: ${v * 4}px; animation-delay: ${i * 0.1}s"></div>`;
-            });
-            waveContainer.innerHTML = wavesHTML;
-        };
-
         const renderGrid = () => {
             const grid = document.getElementById('reports-grid');
-            let html = '';
-
-            intelData.reports.forEach((report) => {
-                const idStr = report.id.toString().padStart(3, '0');
-                html += `
-                    <div class="report-card bg-panel border border-white/5 hover:border-cyan/50 rounded-lg overflow-hidden group cursor-pointer flex flex-col" onclick="openModal(${report.id})">
-                        <div class="h-40 relative overflow-hidden bg-obsidian">
-                            <img 
-                                src="${report.image}" 
-                                alt="${report.title}" 
-                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100 intel-image"
-                                data-fallback-index="${report.id}"
-                            />
-                            <div class="absolute inset-0 bg-gradient-to-t from-panel to-transparent"></div>
-                            <div class="absolute top-3 right-3 bg-dark/80 backdrop-blur text-gold font-mono text-[10px] px-2 py-1 rounded border border-gold/30">
-                                ID: ${idStr}
-                            </div>
-                        </div>
-                        
-                        <div class="p-5 flex-1 flex flex-col pointer-events-none">
-                            <h3 class="font-semibold text-cyan mb-2 leading-tight group-hover:text-cyan/80 transition-colors">${report.title}</h3>
-                            <p class="text-zinc-400 text-sm mb-6 flex-1 line-clamp-2">${report.description}</p>
-                            
-                            <div class="mt-auto w-full group-hover:bg-cyan group-hover:text-dark border border-cyan/30 text-cyan py-2 rounded font-mono text-xs font-bold tracking-wider text-center transition-all duration-300">
-                                ACCESS DATA
-                            </div>
-                        </div>
+            grid.innerHTML = intelData.reports.map(report => `
+                <div class="report-card bg-panel border border-white/5 rounded-lg overflow-hidden group cursor-pointer flex flex-col" onclick="openModal(${report.id})">
+                    <div class="h-40 relative bg-obsidian">
+                        <img src="${report.image}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 intel-image" onerror="this.src='${getFallbackImage(report.id)}'">
+                        <div class="absolute top-3 right-3 bg-dark/80 text-gold font-mono text-[10px] px-2 py-1 rounded border border-gold/30">ID: ${report.id.toString().padStart(3, '0')}</div>
                     </div>
-                `;
-            });
-
-            grid.innerHTML = html;
-        };
-
-        const setupImageFallbacks = () => {
-            const images = document.querySelectorAll('.intel-image');
-            images.forEach(img => {
-                img.onerror = function() {
-                    const fallBackIndex = parseInt(this.getAttribute('data-fallback-index') || '0', 10);
-                    this.src = getFallbackImage(fallBackIndex);
-                    this.onerror = null; // Prevent infinite loop if fallback fails
-                };
-            });
+                    <div class="p-5 flex-1 flex flex-col">
+                        <h3 class="font-semibold text-cyan mb-2 text-sm uppercase">${report.title}</h3>
+                        <p class="text-zinc-400 text-xs line-clamp-2">${report.description}</p>
+                        <div class="mt-4 border border-cyan/30 text-cyan py-1.5 rounded font-mono text-[10px] text-center group-hover:bg-cyan group-hover:text-dark transition-all">ACCESS DATA</div>
+                    </div>
+                </div>
+            `).join('');
         };
 
         // --- MODAL LOGIC ---
-        const modal = document.getElementById('report-modal');
-        const closeBtn = document.getElementById('close-modal-btn');
-
         window.openModal = (id) => {
             const report = intelData.reports.find(r => r.id === id);
             if(!report) return;
 
-            // Populate Text
             document.getElementById('modal-title').innerText = report.title;
             document.getElementById('modal-description').innerText = report.description;
-            
-            // Populate Image
-            const modalImg = document.getElementById('modal-image');
-            modalImg.src = report.image;
-            modalImg.setAttribute('data-fallback-index', report.id);
-            modalImg.onerror = function() { // Re-attach error handler dynamically
-                this.src = getFallbackImage(report.id);
-                this.onerror = null;
-            };
+            document.getElementById('modal-image').src = report.image;
 
-            // Populate Audio link
             const audioContainer = document.getElementById('audio-container');
-            const audioSrc = report.audioUrl;
-            const modalAudio = document.getElementById('modal-audio');
-            const modalAudioSource = document.getElementById('modal-audio-source');
+            const audio = document.getElementById('modal-audio');
+            const audioSource = document.getElementById('modal-audio-source');
 
-            if (audioSrc && audioSrc.trim() !== '') {
+            if (report.audioUrl && report.audioUrl.trim() !== "") {
                 audioContainer.classList.remove('hidden');
-                modalAudioSource.src = audioSrc;
-                modalAudio.load();
-                
-                // Reset UI
-                if(window.updatePlayState) window.updatePlayState(false);
-                const progressBar = document.getElementById('audio-progress');
-                const currentTimeEl = document.getElementById('audio-current');
-                const totalTimeEl = document.getElementById('audio-total');
-                if(progressBar) progressBar.value = 0;
-                if(currentTimeEl) currentTimeEl.innerText = "00:00";
-                if(totalTimeEl) totalTimeEl.innerText = "00:00";
+                audioSource.src = report.audioUrl;
+                audio.load();
             } else {
                 audioContainer.classList.add('hidden');
-                modalAudio.pause();
-                modalAudioSource.src = '';
+                audio.pause();
             }
 
-            // Display Modal
+            const modal = document.getElementById('report-modal');
             modal.classList.remove('hidden');
-            // Timeout to allow DOM update before triggering CSS transition
             setTimeout(() => {
                 modal.classList.remove('opacity-0');
                 modal.classList.add('opacity-100');
             }, 10);
         };
 
-        const closeModal = () => {
-            modal.classList.remove('opacity-100');
+        document.getElementById('close-modal-btn').onclick = () => {
+            const modal = document.getElementById('report-modal');
             modal.classList.add('opacity-0');
-            
-            // Pause Audio
-            const modalAudio = document.getElementById('modal-audio');
-            const modalAudioSource = document.getElementById('modal-audio-source');
-            modalAudio.pause();
-            
-            // Wait for transition to finish
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                if(modalAudioSource) {
-                    modalAudioSource.src = '';
-                    modalAudio.load();
-                }
-            }, 300);
+            document.getElementById('modal-audio').pause();
+            setTimeout(() => modal.classList.add('hidden'), 300);
         };
 
-        // Event Listeners for Modal Closing
-        closeBtn.addEventListener('click', closeModal);
-        modal.addEventListener('click', (e) => {
-            if(e.target === modal) {
-                closeModal();
-            }
-        });
-
-        // --- BOOTSTRAP APP ---
         document.addEventListener('DOMContentLoaded', () => {
             setDate();
             renderGrid();
-            setupAudioWave();
             setupAudioPlayer();
-            setupImageFallbacks();
-            
-            // Initialize Lucide Icons (converts <i data-lucide="..."> tags to SVG)
-            lucide.createIcons();
-            
-            // Initial wave pause
-            const waveBars = document.querySelectorAll('#audio-wave div');
-            waveBars.forEach(bar => bar.style.animationPlayState = 'paused');
+            if (window.lucide) lucide.createIcons();
         });
     </script>
 </body>
-</html>
+                </html>                                   
+                        
+                        
