@@ -10,10 +10,7 @@
             theme: {
                 extend: {
                     colors: { cyan: '#00fff2', gold: '#ffcc00', dark: '#0a0a0a', obsidian: '#0f1115', panel: '#15181e' },
-                    fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
-                    animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    }
+                    fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] }
                 }
             }
         }
@@ -21,90 +18,83 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        body { background-color: #0a0a0a; color: #ffffff; overflow: hidden; }
-        .content-ready { overflow-y: auto; }
-        .logo-glow { filter: drop-shadow(0 0 8px rgba(0, 255, 242, 0.4)); }
+        body { background-color: #0a0a0a; color: #ffffff; overflow-x: hidden; }
+        .report-card { transition: all 0.3s ease; border: 1px solid rgba(0, 255, 242, 0.05); }
+        .report-card:hover { border-color: rgba(0, 255, 242, 0.4); transform: translateY(-3px); }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-thumb { background: #00fff2; border-radius: 10px; }
     </style>
 </head>
-<body class="flex h-screen w-full bg-dark">
+<body class="bg-dark min-h-screen flex flex-col">
 
-    <div id="splash-screen" class="fixed inset-0 z-[100] bg-dark flex flex-col items-center justify-center transition-opacity duration-1000">
+    <div id="splash-screen" class="fixed inset-0 z-[100] bg-dark flex flex-col items-center justify-center transition-opacity duration-700">
         <div class="relative">
             <div class="absolute inset-0 scale-150 border-2 border-cyan/20 rounded-full animate-ping"></div>
-            <div class="relative w-24 h-24 bg-dark border-2 border-cyan flex items-center justify-center rounded-2xl shadow-[0_0_50px_rgba(0,255,242,0.3)]">
-                <i data-lucide="scan-eye" class="text-cyan w-12 h-12"></i>
+            <div class="relative w-20 h-20 bg-black border-2 border-cyan flex items-center justify-center rounded-2xl shadow-[0_0_40px_rgba(0,255,242,0.3)]">
+                <i data-lucide="scan-eye" class="text-cyan w-10 h-10 animate-pulse"></i>
             </div>
         </div>
-        <div class="mt-10 text-center">
-            <h2 class="text-cyan font-mono text-3xl font-black tracking-[0.4em] animate-pulse">AI SCOUT</h2>
-            <div class="w-64 h-1 bg-white/5 mt-6 rounded-full overflow-hidden mx-auto">
-                <div class="h-full bg-cyan animate-[loading_2.5s_ease-in-out_forwards]"></div>
+        <div class="mt-8 text-center">
+            <h2 class="text-cyan font-mono text-2xl font-black tracking-[0.4em] animate-pulse">AI SCOUT</h2>
+            <div class="w-52 h-1 bg-white/5 mt-4 rounded-full overflow-hidden mx-auto">
+                <div class="h-full bg-cyan animate-[loading_2s_ease-in-out_forwards]"></div>
             </div>
         </div>
     </div>
 
-    <aside class="w-20 md:w-64 bg-obsidian border-r border-cyan/20 flex flex-col hidden sm:flex">
+    <header class="sticky top-0 z-20 bg-dark/95 backdrop-blur-md border-b border-cyan/10 py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div class="relative flex items-center justify-center">
+                <div class="absolute w-10 h-10 bg-cyan/20 rounded-full animate-ping opacity-60"></div>
+                <div class="relative w-10 h-10 bg-black border border-cyan/40 rounded-xl flex items-center justify-center shadow-[0_0_15px_rgba(0,255,242,0.2)]">
+                    <i data-lucide="scan-eye" class="text-cyan w-5 h-5 animate-pulse"></i>
+                </div>
+            </div>
+            <div>
+                <div class="font-black text-white text-base tracking-widest font-mono leading-none">AI<span class="text-cyan">SCOUT</span></div>
+                <div class="flex items-center gap-1 mt-1">
+                    <span class="w-1 h-1 rounded-full bg-cyan animate-pulse"></span>
+                    <span class="text-[7px] text-cyan/60 font-mono tracking-widest uppercase">INTEL_NODE</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-1.5 bg-cyan/5 border border-cyan/10 px-3 py-1 rounded-full">
+            <div class="w-1.5 h-1.5 rounded-full bg-cyan shadow-[0_0_8px_#00fff2] animate-pulse"></div>
+            <span class="text-[8px] font-mono text-cyan tracking-widest uppercase">SECURE</span>
+        </div>
+    </header>
+
+    <main id="main-content" class="flex-1 p-6 md:p-10 max-w-6xl mx-auto w-full opacity-0 transition-opacity duration-1000">
+        <div class="flex items-center gap-3 mb-8">
+            <h2 class="text-lg md:text-xl font-bold tracking-[0.2em] text-zinc-200 uppercase font-mono">Intelligence Feed</h2>
+            <div class="flex-1 h-px bg-gradient-to-r from-cyan/30 to-transparent"></div>
+        </div>
         
-        <div class="p-6 border-b border-cyan/10 group cursor-pointer">
-            <div class="flex items-center gap-4">
-                <div class="relative">
-                    <div class="absolute -inset-1 bg-cyan/20 rounded-lg blur opacity-30 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
-                    <div class="relative w-12 h-12 bg-black border border-cyan/50 rounded-lg flex items-center justify-center logo-glow transition-all duration-500 group-hover:border-cyan">
-                        <i data-lucide="scan-eye" class="text-cyan w-6 h-6 animate-pulse"></i>
-                    </div>
-                </div>
-                <div class="hidden md:block">
-                    <div class="font-black text-white text-lg tracking-tighter leading-none">AI <span class="text-cyan">SCOUT</span></div>
-                    <div class="text-[8px] text-cyan/40 font-mono tracking-widest mt-1 uppercase">Intel_Stream_v2</div>
-                </div>
-            </div>
-        </div>
-        <nav class="p-4 space-y-2 flex-1">
-            <div class="flex items-center gap-3 px-4 py-3 rounded bg-cyan/10 text-cyan border border-cyan/20">
-                <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
-                <span class="hidden md:block font-mono text-[10px] font-bold tracking-widest">DASHBOARD</span>
-            </div>
-        </nav>
-    </aside>
-
-    <main id="main-content" class="flex-1 overflow-y-auto opacity-0 transition-opacity duration-1000">
-        <header class="sticky top-0 z-20 bg-dark/90 backdrop-blur-md border-b border-white/5 py-4 px-10 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <div class="w-2 h-2 rounded-full bg-cyan shadow-[0_0_8px_#00fff2] animate-pulse"></div>
-                <span class="text-[9px] font-mono tracking-[0.3em] text-zinc-400 uppercase">Live_Signal_Secure</span>
-            </div>
-            <div class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Auth_Level: 4</div>
-        </header>
-
-        <div class="p-10 pb-24 max-w-7xl mx-auto">
-            <div class="flex items-center gap-4 mb-12">
-                <h2 class="text-2xl font-black tracking-[0.2em] text-white uppercase">Intelligence Feed</h2>
-                <div class="flex-1 h-px bg-gradient-to-r from-cyan/30 to-transparent"></div>
-            </div>
-            <div id="reports-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
-        </div>
+        <div id="reports-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </main>
 
-    <div id="report-modal" class="fixed inset-0 z-50 flex items-center justify-center p-6 bg-dark/95 backdrop-blur-md hidden opacity-0 transition-all duration-300">
-        <div class="bg-panel border border-cyan/30 w-full max-w-2xl rounded-2xl overflow-hidden flex flex-col">
-            <div class="px-6 py-4 border-b border-white/10 flex justify-between items-center bg-obsidian">
-                <h2 id="modal-title" class="text-[10px] font-bold text-cyan tracking-widest font-mono">ENCRYPTED_FILE</h2>
-                <button id="close-modal-btn" class="text-zinc-500 hover:text-cyan p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
+    <div id="report-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm hidden opacity-0 transition-all duration-300">
+        <div class="bg-panel border border-cyan/30 w-full max-w-lg rounded-2xl overflow-hidden flex flex-col shadow-2xl">
+            <div class="px-5 py-3 border-b border-white/5 flex justify-between items-center bg-obsidian">
+                <h2 id="modal-title" class="text-[10px] font-bold text-cyan tracking-widest font-mono">REPORT_DETAILS</h2>
+                <button id="close-modal-btn" class="text-zinc-500 hover:text-cyan p-1"><i data-lucide="x" class="w-4 h-4"></i></button>
             </div>
-            <div class="p-10">
-                <p id="modal-description" class="text-zinc-300 leading-relaxed text-sm text-right pr-4 border-r-2 border-cyan/20" dir="rtl"></p>
-                <div id="audio-container" class="mt-8 w-full bg-dark/50 p-6 rounded-xl border border-white/5 hidden">
-                    <div class="flex items-center gap-6">
-                        <button id="play-pause-btn" class="w-14 h-14 flex items-center justify-center bg-cyan text-dark rounded-full shadow-[0_0_20px_rgba(0,255,242,0.3)]">
-                            <i data-lucide="play" id="icon-play" class="w-6 h-6 fill-current"></i>
-                            <i data-lucide="pause" id="icon-pause" class="w-6 h-6 fill-current hidden"></i>
+            <div class="p-6 md:p-8">
+                <p id="modal-description" class="text-zinc-300 leading-relaxed text-xs md:text-sm text-right pr-3 border-r-2 border-cyan/30" dir="rtl"></p>
+                
+                <div id="audio-container" class="mt-6 w-full bg-black/50 p-4 rounded-xl border border-white/5 hidden">
+                    <div class="flex items-center gap-4">
+                        <button id="play-pause-btn" class="w-12 h-12 shrink-0 flex items-center justify-center bg-cyan text-black rounded-full shadow-[0_0_15px_rgba(0,255,242,0.4)]">
+                            <i data-lucide="play" id="icon-play" class="w-5 h-5 fill-current"></i>
+                            <i data-lucide="pause" id="icon-pause" class="w-5 h-5 fill-current hidden"></i>
                         </button>
-                        <div class="flex-1 space-y-3">
-                            <div class="flex justify-between text-[10px] font-mono text-cyan/70 uppercase">
+                        <div class="flex-1 space-y-2">
+                            <div class="flex justify-between text-[9px] font-mono text-cyan/70">
                                 <span id="audio-current">00:00</span>
                                 <span id="audio-total">00:00</span>
                             </div>
-                            <input type="range" id="audio-progress" value="0" class="w-full h-1.5 bg-white/10 rounded-full appearance-none accent-cyan cursor-pointer">
+                            <input type="range" id="audio-progress" value="0" class="w-full h-1 bg-white/10 rounded-full appearance-none accent-cyan cursor-pointer">
                         </div>
                     </div>
                     <audio id="modal-audio"></audio>
@@ -122,22 +112,22 @@
 
         window.addEventListener('load', () => {
             setTimeout(() => {
-                document.getElementById('splash-screen').classList.add('opacity-0');
+                const splash = document.getElementById('splash-screen');
+                splash.classList.add('opacity-0');
                 document.getElementById('main-content').classList.replace('opacity-0', 'opacity-100');
-                document.body.classList.add('content-ready');
-                setTimeout(() => document.getElementById('splash-screen').classList.add('hidden'), 1000);
-            }, 2500);
+                setTimeout(() => splash.classList.add('hidden'), 700);
+            }, 2000);
         });
 
         const renderGrid = () => {
             const grid = document.getElementById('reports-grid');
             grid.innerHTML = intelData.reports.map(r => `
-                <div class="report-card bg-panel p-8 rounded-xl cursor-pointer group" onclick="openModal(${r.id})">
-                    <div class="flex justify-between items-start mb-6">
+                <div class="report-card bg-panel p-6 rounded-xl cursor-pointer group" onclick="openModal(${r.id})">
+                    <div class="flex justify-between items-start mb-4">
                         <div class="text-gold font-mono text-[9px] tracking-widest uppercase italic">NODE_${r.id}</div>
-                        <i data-lucide="fingerprint" class="w-6 h-6 text-cyan/20 group-hover:text-cyan transition-colors"></i>
+                        <i data-lucide="fingerprint" class="w-5 h-5 text-cyan/20 group-hover:text-cyan transition-colors"></i>
                     </div>
-                    <h3 class="text-white font-bold text-lg mb-4 uppercase tracking-tighter group-hover:text-cyan transition-colors">${r.title}</h3>
+                    <h3 class="text-white font-bold text-base mb-3 uppercase tracking-tighter group-hover:text-cyan transition-colors">${r.title}</h3>
                     <p class="text-zinc-500 text-xs leading-relaxed line-clamp-2" dir="rtl">${r.description}</p>
                 </div>
             `).join('');
@@ -147,12 +137,17 @@
         const audio = document.getElementById('modal-audio');
         window.openModal = (id) => {
             const r = intelData.reports.find(x => x.id === id);
-            document.getElementById('modal-title').innerText = `NODE_ACCESS // ID_${r.id}`;
+            document.getElementById('modal-title').innerText = `ACCESS // NODE_${r.id}`;
             document.getElementById('modal-description').innerText = r.description;
             if (r.audioUrl) {
                 document.getElementById('audio-container').classList.remove('hidden');
-                audio.src = r.audioUrl + "?v=" + new Date().getTime();
+                audio.src = r.audioUrl + "?v=" + Date.now();
                 audio.load();
+                audio.pause();
+                document.getElementById('icon-play').classList.remove('hidden');
+                document.getElementById('icon-pause').classList.add('hidden');
+            } else {
+                document.getElementById('audio-container').classList.add('hidden');
             }
             const m = document.getElementById('report-modal');
             m.classList.remove('hidden');
@@ -160,8 +155,15 @@
         };
 
         document.getElementById('play-pause-btn').onclick = () => {
-            if (audio.paused) { audio.play(); document.getElementById('icon-play').classList.add('hidden'); document.getElementById('icon-pause').classList.remove('hidden'); }
-            else { audio.pause(); document.getElementById('icon-play').classList.remove('hidden'); document.getElementById('icon-pause').classList.add('hidden'); }
+            if (audio.paused) { 
+                audio.play(); 
+                document.getElementById('icon-play').classList.add('hidden'); 
+                document.getElementById('icon-pause').classList.remove('hidden'); 
+            } else { 
+                audio.pause(); 
+                document.getElementById('icon-play').classList.remove('hidden'); 
+                document.getElementById('icon-pause').classList.add('hidden'); 
+            }
         };
 
         audio.ontimeupdate = () => {
@@ -170,7 +172,12 @@
             if(!isNaN(audio.duration)) document.getElementById('audio-total').innerText = formatTime(audio.duration);
         };
 
+        document.getElementById('audio-progress').oninput = (e) => {
+            audio.currentTime = (e.target.value / 100) * audio.duration;
+        };
+
         const formatTime = (s) => `${Math.floor(s/60).toString().padStart(2,'0')}:${Math.floor(s%60).toString().padStart(2,'0')}`;
+        
         document.getElementById('close-modal-btn').onclick = () => {
             document.getElementById('report-modal').classList.replace('opacity-100', 'opacity-0');
             audio.pause();
@@ -178,10 +185,10 @@
         };
 
         document.addEventListener('DOMContentLoaded', renderGrid);
-        lucide.createIcons();
     </script>
     <style>
         @keyframes loading { 0% { width: 0%; } 100% { width: 100%; } }
     </style>
 </body>
 </html>
+R
